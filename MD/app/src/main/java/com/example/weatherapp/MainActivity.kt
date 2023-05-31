@@ -1,7 +1,6 @@
 package com.example.weatherapp
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -15,6 +14,7 @@ import com.example.weatherapp.ui.home.BookmarkedList
 import com.example.weatherapp.ui.theme.WeatherAppTheme
 import com.example.weatherapp.ui.viewmodel.HomeViewModel
 import com.example.weatherapp.ui.viewmodel.ViewModelFactory
+import com.example.weatherapp.utils.sortedListByWord
 
 class MainActivity : ComponentActivity() {
 
@@ -40,7 +40,7 @@ class MainActivity : ComponentActivity() {
                         color = MaterialTheme.colors.background
                     ) {
                         if (items.isNotEmpty()) {
-                            BookmarkedList(viewModel = viewModel, list = items)
+                            BookmarkedList(viewModel = viewModel, list = sortedListByWord(items))
                         }
                     }
                 }

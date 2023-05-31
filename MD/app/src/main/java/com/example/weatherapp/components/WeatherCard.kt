@@ -23,7 +23,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.weatherapp.ui.theme.WeatherAppTheme
-import com.example.weatherapp.utils.DoubleToInt
+import com.example.weatherapp.utils.doubleToInt
 
 @Composable
 fun WeatherCard(
@@ -50,15 +50,15 @@ fun WeatherCard(
 
     Box(
         modifier = modifier
-            .width(180.dp)
-            .height(70.dp),
-        contentAlignment = Alignment.Center
+            .fillMaxWidth()
+            .height(110.dp),
+        contentAlignment = Alignment.BottomCenter
     ) {
         Card(
             modifier = modifier
                 .fillMaxWidth()
-                .height(60.dp),
-            shape = RoundedCornerShape(10.dp)
+                .height(100.dp),
+            shape = RoundedCornerShape(20.dp)
         ) {
             Box(
                 modifier = modifier.background(Brush.verticalGradient(background))
@@ -66,17 +66,17 @@ fun WeatherCard(
 
             Column(
                 modifier = modifier
-                    .padding(horizontal = 10.dp, vertical = 8.dp),
+                    .padding(horizontal = 20.dp, vertical = 16.dp),
             ) {
                 Text(
                     text = cityName,
-                    fontSize = 18.sp,
+                    fontSize = 28.sp,
                     fontFamily = FontFamily.SansSerif,
                     fontWeight = FontWeight.Bold
                 )
                 Text(
                     text = status,
-                    fontSize = 14.sp,
+                    fontSize = 20.sp,
                     fontFamily = FontFamily.SansSerif,
                     fontWeight = FontWeight.Medium
                 )
@@ -84,18 +84,17 @@ fun WeatherCard(
         }
         Icon(
             modifier = modifier
-                .size(60.dp)
+                .size(120.dp)
                 .align(Alignment.CenterEnd)
-                .offset(x = (-10).dp, y = (-5).dp),
+                .offset(x = (-5).dp,y = (-5).dp),
             imageVector = icon,
             contentDescription = null,
             tint = tint
         )
         Card(
             modifier = modifier
-                .width(45.dp)
-                .height(20.dp)
-                .offset(x = 5.dp, y = (-3).dp)
+                .width(70.dp)
+                .height(30.dp)
                 .align(Alignment.BottomCenter),
             elevation = 0.dp,
             backgroundColor = Color(0x66FFFFFF),
@@ -104,10 +103,10 @@ fun WeatherCard(
         ) {
             Text(
                 modifier = modifier
-                    .padding(top = 4.dp),
-                text = "${DoubleToInt(tempC)}℃",
+                    .padding(top = 5.dp),
+                text = "${doubleToInt(tempC)}℃",
                 fontFamily = FontFamily.SansSerif,
-                fontSize = 10.sp,
+                fontSize = 18.sp,
                 fontWeight = FontWeight.Medium,
                 textAlign = TextAlign.Center,
             )
