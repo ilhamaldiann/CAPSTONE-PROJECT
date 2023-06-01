@@ -10,9 +10,9 @@ import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
 import com.example.weatherapp.data.WeatherData
 import com.example.weatherapp.data.local.BookmarkEntity
-import com.example.weatherapp.ui.home.BookmarkedList
+import com.example.weatherapp.ui.screen.home.BookmarkedList
 import com.example.weatherapp.ui.theme.WeatherAppTheme
-import com.example.weatherapp.ui.home.HomeViewModel
+import com.example.weatherapp.ui.screen.home.HomeViewModel
 import com.example.weatherapp.ui.ViewModelFactory
 
 class MainActivity : ComponentActivity() {

@@ -1,4 +1,4 @@
-package com.example.weatherapp.ui.home
+package com.example.weatherapp.ui.screen.home
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
