@@ -1,4 +1,4 @@
-package com.example.weatherapp.components
+package com.example.weatherapp.ui.components
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -19,6 +19,8 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Device
+import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -114,17 +116,10 @@ fun WeatherCard(
     }
 }
 
-@Preview(showBackground = true)
+@Preview(showBackground = true, widthDp = 320)
 @Composable
 fun WeatherCardPreview() {
     WeatherAppTheme {
-        WeatherCard(cityName = "Semarang", status = "Sunny", tempC = 28.0)
-    }
-}
-@Preview(showBackground = true)
-@Composable
-fun WeatherCardPreview2() {
-    WeatherAppTheme {
-        WeatherCard(cityName = "Jakarta", status = "Cloudy", tempC = 25.1)
+        WeatherCard(cityName = "Banda Aceh", status = "Cloudy", tempC = 28.2)
     }
 }
