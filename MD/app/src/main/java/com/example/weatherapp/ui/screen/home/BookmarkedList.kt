@@ -8,7 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.weatherapp.components.WeatherCard
+import com.example.weatherapp.ui.components.WeatherCard
 import com.example.weatherapp.data.WeatherData
 import com.example.weatherapp.ui.common.UiState
 
