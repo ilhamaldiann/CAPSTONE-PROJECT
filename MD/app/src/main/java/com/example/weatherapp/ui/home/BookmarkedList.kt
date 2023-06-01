@@ -11,13 +11,12 @@ import androidx.compose.ui.unit.dp
 import com.example.weatherapp.components.WeatherCard
 import com.example.weatherapp.data.WeatherData
 import com.example.weatherapp.ui.common.UiState
-import com.example.weatherapp.ui.viewmodel.HomeViewModel
 
 @Composable
 fun BookmarkedList(
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel,
-    list: List<WeatherData>
+    list: ArrayList<WeatherData>
 ) {
     viewModel.uiState.collectAsState(initial = UiState.Loading).value.let { uiState ->
         when (uiState) {

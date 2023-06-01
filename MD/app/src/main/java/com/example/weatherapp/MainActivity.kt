@@ -12,9 +12,8 @@ import com.example.weatherapp.data.WeatherData
 import com.example.weatherapp.data.local.BookmarkEntity
 import com.example.weatherapp.ui.home.BookmarkedList
 import com.example.weatherapp.ui.theme.WeatherAppTheme
-import com.example.weatherapp.ui.viewmodel.HomeViewModel
-import com.example.weatherapp.ui.viewmodel.ViewModelFactory
-import com.example.weatherapp.utils.sortedListByWord
+import com.example.weatherapp.ui.home.HomeViewModel
+import com.example.weatherapp.ui.ViewModelFactory
 
 class MainActivity : ComponentActivity() {
 
@@ -22,7 +21,6 @@ class MainActivity : ComponentActivity() {
     private val viewModel: HomeViewModel by viewModels {
         ViewModelFactory.getInstance(application)
     }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -40,7 +38,7 @@ class MainActivity : ComponentActivity() {
                         color = MaterialTheme.colors.background
                     ) {
                         if (items.isNotEmpty()) {
-                            BookmarkedList(viewModel = viewModel, list = sortedListByWord(items))
+                            BookmarkedList(viewModel = viewModel, list = items)
                         }
                     }
                 }

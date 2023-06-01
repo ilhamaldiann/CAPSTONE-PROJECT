@@ -1,10 +1,12 @@
-package com.example.weatherapp.ui.viewmodel
+package com.example.weatherapp.ui
 
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.weatherapp.data.WeatherRepository
 import com.example.weatherapp.di.Injection
+import com.example.weatherapp.ui.detail.DetailViewModel
+import com.example.weatherapp.ui.home.HomeViewModel
 
 class ViewModelFactory(private val repository: WeatherRepository) :
     ViewModelProvider.NewInstanceFactory() {
