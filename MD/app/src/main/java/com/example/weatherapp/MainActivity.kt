@@ -1,6 +1,7 @@
 package com.example.weatherapp
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -10,22 +11,23 @@ import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
 import com.example.weatherapp.data.WeatherData
 import com.example.weatherapp.data.local.BookmarkEntity
-import com.example.weatherapp.ui.screen.home.BookmarkedList
-import com.example.weatherapp.ui.theme.WeatherAppTheme
-import com.example.weatherapp.ui.screen.home.HomeViewModel
 import com.example.weatherapp.ui.ViewModelFactory
+import com.example.weatherapp.ui.screen.home.BookmarkedList
+import com.example.weatherapp.ui.screen.home.HomeViewModel
+import com.example.weatherapp.ui.theme.WeatherAppTheme
 
 class MainActivity : ComponentActivity() {
-
 
     private val viewModel: HomeViewModel by viewModels {
         ViewModelFactory.getInstance(application)
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         val items = ArrayList<WeatherData>()
         viewModel.getBookmarkCity().observe(this) { listCity: List<BookmarkEntity> ->
+            Log.i("MainActivity", "onCreate: $listCity")
             listCity.map {
                 val item = WeatherData(it.cityName)
                 items.add(item)

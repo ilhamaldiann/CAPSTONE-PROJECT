@@ -16,7 +16,6 @@ import androidx.compose.material.icons.rounded.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -152,7 +151,7 @@ fun GridWeatherComponent(modifier: Modifier = Modifier) {
             ) {
                 Icon(
                     modifier = modifier.size(36.dp),
-                    imageVector = Icons.Rounded.Home,
+                    imageVector = Icons.Rounded.Thermostat,
                     contentDescription = null
                 )
                 Text(text = "Celcius")
@@ -166,10 +165,10 @@ fun GridWeatherComponent(modifier: Modifier = Modifier) {
             ) {
                 Icon(
                     modifier = modifier.size(36.dp),
-                    imageVector = Icons.Rounded.Home,
+                    imageVector = Icons.Rounded.Air,
                     contentDescription = null
                 )
-                Text(text = "Celcius")
+                Text(text = "Wind")
                 Text(text = "20")
             }
         }
@@ -180,10 +179,10 @@ fun GridWeatherComponent(modifier: Modifier = Modifier) {
             ) {
                 Icon(
                     modifier = modifier.size(36.dp),
-                    imageVector = Icons.Rounded.Home,
+                    imageVector = Icons.Rounded.Flare,
                     contentDescription = null
                 )
-                Text(text = "Celcius")
+                Text(text = "UV Index")
                 Text(text = "20")
             }
         }
@@ -194,10 +193,10 @@ fun GridWeatherComponent(modifier: Modifier = Modifier) {
             ) {
                 Icon(
                     modifier = modifier.size(36.dp),
-                    imageVector = Icons.Rounded.Home,
+                    imageVector = Icons.Rounded.Thermostat,
                     contentDescription = null
                 )
-                Text(text = "Celcius")
+                Text(text = "Fahrenheit")
                 Text(text = "20")
             }
         }
@@ -208,10 +207,10 @@ fun GridWeatherComponent(modifier: Modifier = Modifier) {
             ) {
                 Icon(
                     modifier = modifier.size(36.dp),
-                    imageVector = Icons.Rounded.Home,
+                    imageVector = Icons.Rounded.Speed,
                     contentDescription = null
                 )
-                Text(text = "Celcius")
+                Text(text = "Air Pressure")
                 Text(text = "20")
             }
         }
@@ -222,10 +221,10 @@ fun GridWeatherComponent(modifier: Modifier = Modifier) {
             ) {
                 Icon(
                     modifier = modifier.size(36.dp),
-                    imageVector = Icons.Rounded.Home,
+                    imageVector = Icons.Rounded.WaterDrop,
                     contentDescription = null
                 )
-                Text(text = "Celcius")
+                Text(text = "Humidity")
                 Text(text = "20")
             }
         }

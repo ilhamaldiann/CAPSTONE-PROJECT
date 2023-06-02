@@ -8,6 +8,7 @@ import androidx.compose.material.Card
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.WaterDrop
 import androidx.compose.material.icons.rounded.WbCloudy
 import androidx.compose.material.icons.rounded.WbSunny
 import androidx.compose.runtime.Composable
@@ -19,8 +20,6 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Device
-import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -37,11 +36,18 @@ fun WeatherCard(
     val icon: ImageVector
     val tint: Color
     val background: List<Color>
+    var water: ImageVector? = null
     when (status) {
         "Sunny" -> {
             icon = Icons.Rounded.WbSunny
             tint = Color(0xFFFFE37E)
             background = listOf(Color(0xFFF37100), Color(0xFFFFC800))
+        }
+        "Rainy" -> {
+            icon = Icons.Rounded.WbCloudy
+            water = Icons.Rounded.WaterDrop
+            tint = Color(0xFFA8C5F8)
+            background = listOf(Color(0xFF007BFF), Color(0xFF9EE9FF))
         }
         else -> {
             icon = Icons.Rounded.WbCloudy
@@ -93,6 +99,35 @@ fun WeatherCard(
             contentDescription = null,
             tint = tint
         )
+        if (water != null) {
+            Icon(
+                modifier = modifier
+                    .size(30.dp)
+                    .align(Alignment.CenterEnd)
+                    .offset(x = (-90).dp,y = (30).dp),
+                imageVector = water,
+                contentDescription = null,
+                tint = Color(0xFF03A9F4)
+            )
+            Icon(
+                modifier = modifier
+                    .size(30.dp)
+                    .align(Alignment.CenterEnd)
+                    .offset(x = (-50).dp,y = (30).dp),
+                imageVector = water,
+                contentDescription = null,
+                tint = Color(0xFF03A9F4)
+            )
+            Icon(
+                modifier = modifier
+                    .size(30.dp)
+                    .align(Alignment.CenterEnd)
+                    .offset(x = (-10).dp,y = (30).dp),
+                imageVector = water,
+                contentDescription = null,
+                tint = Color(0xFF03A9F4)
+            )
+        }
         Card(
             modifier = modifier
                 .width(70.dp)
@@ -121,5 +156,21 @@ fun WeatherCard(
 fun WeatherCardPreview() {
     WeatherAppTheme {
         WeatherCard(cityName = "Banda Aceh", status = "Cloudy", tempC = 28.2)
+    }
+}
+
+@Preview(showBackground = true, widthDp = 320)
+@Composable
+fun WeatherCardPreview2() {
+    WeatherAppTheme {
+        WeatherCard(cityName = "Banda Aceh", status = "Rainy", tempC = 28.2)
+    }
+}
+
+@Preview(showBackground = true, widthDp = 320)
+@Composable
+fun WeatherCardPreview3() {
+    WeatherAppTheme {
+        WeatherCard(cityName = "Banda Aceh", status = "Sunny", tempC = 28.2)
     }
 }
