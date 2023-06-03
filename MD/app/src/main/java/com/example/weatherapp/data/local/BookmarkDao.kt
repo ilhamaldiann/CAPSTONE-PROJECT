@@ -5,7 +5,7 @@ import androidx.room.*
 
 @Dao
 interface BookmarkDao {
-    @Query("SELECT * FROM bookmarkCity")
+    @Query("SELECT * FROM bookmarkCity ORDER BY cityName ASC")
     fun getBookmarkCity(): LiveData<List<BookmarkEntity>>
 
     @Query("SELECT * FROM bookmarkCity WHERE cityName = :cityName")

@@ -25,9 +25,6 @@ class WeatherRepository private constructor(
     }
 
     fun getBookmarkCity(): LiveData<List<BookmarkEntity>> {
-        appExecutors.diskIO.execute {
-            bookmarkDao.insertCity(BookmarkEntity("Semarang"))
-        }
         return bookmarkDao.getBookmarkCity()
     }
 

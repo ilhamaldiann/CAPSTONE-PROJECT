@@ -1,9 +1,11 @@
 package com.example.weatherapp.ui.screen.home
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.weatherapp.data.WeatherRepository
 import com.example.weatherapp.data.CurrentWeatherResponse
+import com.example.weatherapp.data.local.BookmarkEntity
 import com.example.weatherapp.ui.common.UiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -17,6 +19,7 @@ class HomeViewModel(
         MutableStateFlow(UiState.Loading)
     val uiState: StateFlow<UiState<List<CurrentWeatherResponse>>> = _uiState
 
+    val bookmarkCity: LiveData<List<BookmarkEntity>> = repository.getBookmarkCity()
     fun getWeatherData(cityName: String, airQuality: String = "no") {
         viewModelScope.launch {
             repository.getWeatherData(cityName, airQuality)
@@ -28,6 +31,4 @@ class HomeViewModel(
                 }
         }
     }
-
-    fun getBookmarkCity() = repository.getBookmarkCity()
 }
