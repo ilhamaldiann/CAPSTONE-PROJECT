@@ -247,40 +247,10 @@ fun GridWeatherComponent(modifier: Modifier = Modifier) {
     }
 }
 
-//fun Modifier.shadow(
-//    color: Color = Color.Black,
-//    offsetX: Dp = 0.dp,
-//    offsetY: Dp = 0.dp,
-//    blurRadius: Dp = 0.dp,
-//) = then(
-//    drawBehind {
-//        drawIntoCanvas { canvas ->
-//            val paint = Paint()
-//            val frameworkPaint = paint.asFrameworkPaint()
-//            if (blurRadius != 0.dp) {
-//                frameworkPaint.maskFilter = (BlurMaskFilter(blurRadius.toPx(), NORMAL))
-//            }
-//            frameworkPaint.color = color.toArgb()
-//
-//            val leftPixel = offsetX.toPx()
-//            val topPixel = offsetY.toPx()
-//            val rightPixel = size.width + topPixel
-//            val bottomPixel = size.height + leftPixel
-//
-//            canvas.drawRect(
-//                left = leftPixel,
-//                top = topPixel,
-//                right = rightPixel,
-//                bottom = bottomPixel,
-//                paint = paint,
-//            )
-//        }
-//    }
-//)
-
-@Preview(showBackground = false, widthDp = 432, heightDp = 864)
+@Preview(showBackground = false, widthDp = 432)
 @Composable
 fun DetailWeatherPreview() {
     WeatherAppTheme {
+        MainCard(navigateBack = {})
     }
 }
