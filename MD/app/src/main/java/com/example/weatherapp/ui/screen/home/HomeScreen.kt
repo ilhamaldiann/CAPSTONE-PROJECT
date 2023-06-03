@@ -1,5 +1,6 @@
 package com.example.weatherapp.ui.screen.home
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.LazyColumn
@@ -14,9 +15,10 @@ import com.example.weatherapp.ui.components.WeatherCard
 import com.example.weatherapp.ui.common.UiState
 
 @Composable
-fun BookmarkedList(
+fun HomeScreen(
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel,
+    navigateToDetail: (String) -> Unit
 ) {
     val bookmarkCity by viewModel.bookmarkCity.observeAsState()
     viewModel.uiState.collectAsState(initial = UiState.Loading).value.let { uiState ->
@@ -30,13 +32,15 @@ fun BookmarkedList(
                 LazyColumn(
                     contentPadding = PaddingValues(56.dp),
                     verticalArrangement = Arrangement.spacedBy(16.dp)
-                ){
-                    items(uiState.data){
+                ) {
+                    items(uiState.data) {
                         WeatherCard(
                             cityName = it.location.name,
                             status = it.current.condition.text,
                             tempC = it.current.tempC,
-                            modifier = modifier
+                            modifier = modifier.clickable {
+                                navigateToDetail(it.location.name)
+                            }
                         )
                     }
                 }

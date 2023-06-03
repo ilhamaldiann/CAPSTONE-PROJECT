@@ -31,7 +31,7 @@ fun WeatherCard(
     modifier: Modifier = Modifier,
     cityName: String,
     status: String,
-    tempC: Double
+    tempC: Double,
 ) {
     val icon: ImageVector
     val tint: Color

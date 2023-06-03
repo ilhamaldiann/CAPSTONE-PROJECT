@@ -25,14 +25,17 @@ import androidx.compose.ui.unit.sp
 import com.example.weatherapp.ui.theme.WeatherAppTheme
 
 @Composable
-fun DetailWeather(
+fun DetailScreen(
     modifier: Modifier = Modifier,
+    viewModel: DetailViewModel,
+    cityName: String,
+    navigateBack: () -> Unit,
 ) {
     Column(
         modifier = modifier
             .fillMaxWidth(),
     ) {
-        MainCard()
+        MainCard(navigateBack = navigateBack)
         Row(
             modifier = modifier
                 .fillMaxWidth()
@@ -50,7 +53,8 @@ fun DetailWeather(
 
 @Composable
 fun MainCard(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    navigateBack: () -> Unit,
 ) {
     Card(
         modifier = modifier
@@ -59,14 +63,21 @@ fun MainCard(
         shape = RoundedCornerShape(bottomStart = 20.dp, bottomEnd = 20.dp)
     ) {
         Box(
-            modifier = modifier.background(Brush.verticalGradient(listOf(Color(0xFF9EE9FF), Color(0xFF007BFF))))
+            modifier = modifier.background(
+                Brush.verticalGradient(
+                    listOf(
+                        Color(0xFF9EE9FF),
+                        Color(0xFF007BFF)
+                    )
+                )
+            )
         )
         Column(
             modifier = modifier
                 .padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Header()
+            Header(navigateBack = navigateBack)
             WeatherInCard()
             GridWeatherComponent()
         }
@@ -74,7 +85,10 @@ fun MainCard(
 }
 
 @Composable
-fun Header(modifier: Modifier = Modifier) {
+fun Header(
+    modifier: Modifier = Modifier,
+    navigateBack: () -> Unit,
+) {
     Row(
         modifier = modifier
             .fillMaxWidth(),
@@ -82,7 +96,7 @@ fun Header(modifier: Modifier = Modifier) {
     ) {
         Icon(
             modifier = modifier
-                .clickable {},
+                .clickable { navigateBack },
             imageVector = Icons.Rounded.ArrowBack,
             contentDescription = "Back",
         )
@@ -103,6 +117,7 @@ fun Header(modifier: Modifier = Modifier) {
         )
     }
 }
+
 @Composable
 fun WeatherInCard(modifier: Modifier = Modifier) {
     Card(
@@ -136,6 +151,7 @@ fun WeatherInCard(modifier: Modifier = Modifier) {
         }
     }
 }
+
 @Composable
 fun GridWeatherComponent(modifier: Modifier = Modifier) {
     LazyVerticalGrid(
@@ -266,6 +282,5 @@ fun GridWeatherComponent(modifier: Modifier = Modifier) {
 @Composable
 fun DetailWeatherPreview() {
     WeatherAppTheme {
-        DetailWeather()
     }
 }

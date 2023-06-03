@@ -10,7 +10,6 @@ import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
 import com.example.weatherapp.ui.ViewModelFactory
 import com.example.weatherapp.ui.screen.detail.DetailViewModel
-import com.example.weatherapp.ui.screen.home.BookmarkedList
 import com.example.weatherapp.ui.screen.home.HomeViewModel
 import com.example.weatherapp.ui.theme.WeatherAppTheme
 
@@ -22,7 +21,6 @@ class MainActivity : ComponentActivity() {
     private val detailViewModel: DetailViewModel by viewModels {
         ViewModelFactory.getInstance(application)
     }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -33,7 +31,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    BookmarkedList(viewModel = homeViewModel)
+                    WeatherApp(homeViewModel = homeViewModel, detailViewModel = detailViewModel)
                 }
             }
         }
