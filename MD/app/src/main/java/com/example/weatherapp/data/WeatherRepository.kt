@@ -1,9 +1,10 @@
 package com.example.weatherapp.data
 
 import androidx.lifecycle.LiveData
-import com.example.weatherapp.data.local.BookmarkDao
-import com.example.weatherapp.data.local.BookmarkEntity
-import com.example.weatherapp.data.retrofit.ApiConfig
+import com.example.weatherapp.data.local.room.BookmarkDao
+import com.example.weatherapp.data.local.entity.BookmarkEntity
+import com.example.weatherapp.data.remote.response.CurrentWeatherResponse
+import com.example.weatherapp.data.remote.retrofit.ApiConfig
 import com.example.weatherapp.utils.AppExecutors
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf

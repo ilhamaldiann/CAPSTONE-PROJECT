@@ -1,7 +1,8 @@
-package com.example.weatherapp.data.local
+package com.example.weatherapp.data.local.room
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import com.example.weatherapp.data.local.entity.BookmarkEntity
 
 @Dao
 interface BookmarkDao {

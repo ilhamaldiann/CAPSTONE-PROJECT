@@ -2,9 +2,9 @@ package com.example.weatherapp.ui.screen.detail
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.weatherapp.data.CurrentWeatherResponse
+import com.example.weatherapp.data.remote.response.CurrentWeatherResponse
 import com.example.weatherapp.data.WeatherRepository
-import com.example.weatherapp.data.local.BookmarkEntity
+import com.example.weatherapp.data.local.entity.BookmarkEntity
 import com.example.weatherapp.ui.common.UiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

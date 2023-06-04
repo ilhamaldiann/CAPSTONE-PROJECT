@@ -1,4 +1,4 @@
-package com.example.weatherapp.data.retrofit
+package com.example.weatherapp.data.remote.retrofit
 
 import com.example.weatherapp.BuildConfig
 import okhttp3.OkHttpClient

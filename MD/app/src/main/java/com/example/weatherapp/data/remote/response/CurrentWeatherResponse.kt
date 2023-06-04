@@ -1,4 +1,4 @@
-package com.example.weatherapp.data
+package com.example.weatherapp.data.remote.response
 
 import com.google.gson.annotations.SerializedName
 
@@ -70,47 +70,47 @@ data class Current(
     @field:SerializedName("pressure_mb")
     val pressureMb: Any? = null,
 
-/*	@field:SerializedName("feelslike_c")
-	val feelslikeC: Any? = null,
+    /*	@field:SerializedName("feelslike_c")
+        val feelslikeC: Any? = null,
 
-	@field:SerializedName("feelslike_f")
-	val feelslikeF: Any? = null,
+        @field:SerializedName("feelslike_f")
+        val feelslikeF: Any? = null,
 
-	@field:SerializedName("last_updated")
-	val lastUpdated: String? = null,
+        @field:SerializedName("last_updated")
+        val lastUpdated: String? = null,
 
-	@field:SerializedName("wind_degree")
-	val windDegree: Int? = null,
+        @field:SerializedName("wind_degree")
+        val windDegree: Int? = null,
 
-	@field:SerializedName("last_updated_epoch")
-	val lastUpdatedEpoch: Int? = null,
+        @field:SerializedName("last_updated_epoch")
+        val lastUpdatedEpoch: Int? = null,
 
-	@field:SerializedName("precip_in")
-	val precipIn: Any? = null,
+        @field:SerializedName("precip_in")
+        val precipIn: Any? = null,
 
-	@field:SerializedName("precip_mm")
-	val precipMm: Any? = null,
+        @field:SerializedName("precip_mm")
+        val precipMm: Any? = null,
 
-	@field:SerializedName("wind_dir")
-	val windDir: String? = null,
+        @field:SerializedName("wind_dir")
+        val windDir: String? = null,
 
-	@field:SerializedName("gust_kph")
-	val gustKph: Any? = null,
+        @field:SerializedName("gust_kph")
+        val gustKph: Any? = null,
 
-	@field:SerializedName("gust_mph")
-	val gustMph: Any? = null,
+        @field:SerializedName("gust_mph")
+        val gustMph: Any? = null,
 
-	@field:SerializedName("pressure_in")
-	val pressureIn: Any? = null,
+        @field:SerializedName("pressure_in")
+        val pressureIn: Any? = null,
 
-	@field:SerializedName("wind_kph")
-	val windKph: Any? = null,
+        @field:SerializedName("wind_kph")
+        val windKph: Any? = null,
 
-	@field:SerializedName("vis_km")
-	val visKm: Any? = null,
+        @field:SerializedName("vis_km")
+        val visKm: Any? = null,
 
-	@field:SerializedName("vis_miles")
-	val visMiles: Any? = null, */
+        @field:SerializedName("vis_miles")
+        val visMiles: Any? = null, */
 )
 
 data class Condition(
@@ -208,35 +208,35 @@ data class Day(
     @field:SerializedName("maxwind_mph")
     val maxwindMph: Any? = null,
 
-/*	@field:SerializedName("avgvis_km")
-	val avgvisKm: Any? = null,
+    /*	@field:SerializedName("avgvis_km")
+        val avgvisKm: Any? = null,
 
-	@field:SerializedName("daily_chance_of_rain")
-	val dailyChanceOfRain: Int? = null,
+        @field:SerializedName("daily_chance_of_rain")
+        val dailyChanceOfRain: Int? = null,
 
-	@field:SerializedName("daily_chance_of_snow")
-	val dailyChanceOfSnow: Int? = null,
+        @field:SerializedName("daily_chance_of_snow")
+        val dailyChanceOfSnow: Int? = null,
 
-	@field:SerializedName("daily_will_it_rain")
-	val dailyWillItRain: Int? = null,
+        @field:SerializedName("daily_will_it_rain")
+        val dailyWillItRain: Int? = null,
 
-	@field:SerializedName("daily_will_it_snow")
-	val dailyWillItSnow: Int? = null,
+        @field:SerializedName("daily_will_it_snow")
+        val dailyWillItSnow: Int? = null,
 
-	@field:SerializedName("avgvis_miles")
-	val avgvisMiles: Any? = null,
+        @field:SerializedName("avgvis_miles")
+        val avgvisMiles: Any? = null,
 
-	@field:SerializedName("totalprecip_in")
-	val totalprecipIn: Any? = null,
+        @field:SerializedName("totalprecip_in")
+        val totalprecipIn: Any? = null,
 
-	@field:SerializedName("totalsnow_cm")
-	val totalsnowCm: Any? = null,
+        @field:SerializedName("totalsnow_cm")
+        val totalsnowCm: Any? = null,
 
-	@field:SerializedName("maxwind_kph")
-	val maxwindKph: Any? = null,
+        @field:SerializedName("maxwind_kph")
+        val maxwindKph: Any? = null,
 
-	@field:SerializedName("totalprecip_mm")
-	val totalprecipMm: Any? = null, */
+        @field:SerializedName("totalprecip_mm")
+        val totalprecipMm: Any? = null, */
 )
 
 data class HourItem(
@@ -274,69 +274,69 @@ data class HourItem(
     @field:SerializedName("time")
     val time: String? = null,
 
-/*    @field:SerializedName("feelslike_c")
-    val feelslikeC: Any? = null,
+    /*    @field:SerializedName("feelslike_c")
+        val feelslikeC: Any? = null,
 
-    @field:SerializedName("feelslike_f")
-    val feelslikeF: Any? = null,
+        @field:SerializedName("feelslike_f")
+        val feelslikeF: Any? = null,
 
-    @field:SerializedName("wind_degree")
-    val windDegree: Int? = null,
+        @field:SerializedName("wind_degree")
+        val windDegree: Int? = null,
 
-    @field:SerializedName("windchill_f")
-    val windchillF: Any? = null,
+        @field:SerializedName("windchill_f")
+        val windchillF: Any? = null,
 
-    @field:SerializedName("windchill_c")
-    val windchillC: Any? = null,
+        @field:SerializedName("windchill_c")
+        val windchillC: Any? = null,
 
-    @field:SerializedName("wind_kph")
-    val windKph: Any? = null,
+        @field:SerializedName("wind_kph")
+        val windKph: Any? = null,
 
-    @field:SerializedName("dewpoint_c")
-    val dewpointC: Any? = null,
+        @field:SerializedName("dewpoint_c")
+        val dewpointC: Any? = null,
 
-    @field:SerializedName("dewpoint_f")
-    val dewpointF: Any? = null,
+        @field:SerializedName("dewpoint_f")
+        val dewpointF: Any? = null,
 
-    @field:SerializedName("heatindex_c")
-    val heatindexC: Any? = null,
+        @field:SerializedName("heatindex_c")
+        val heatindexC: Any? = null,
 
-    @field:SerializedName("heatindex_f")
-    val heatindexF: Any? = null,
+        @field:SerializedName("heatindex_f")
+        val heatindexF: Any? = null,
 
-    @field:SerializedName("precip_mm")
-    val precipMm: Any? = null,
+        @field:SerializedName("precip_mm")
+        val precipMm: Any? = null,
 
-    @field:SerializedName("precip_in")
-    val precipIn: Any? = null,
+        @field:SerializedName("precip_in")
+        val precipIn: Any? = null,
 
-    @field:SerializedName("wind_dir")
-    val windDir: String? = null,
+        @field:SerializedName("wind_dir")
+        val windDir: String? = null,
 
-    @field:SerializedName("gust_mph")
-    val gustMph: Any? = null,
+        @field:SerializedName("gust_mph")
+        val gustMph: Any? = null,
 
-    @field:SerializedName("gust_kph")
-    val gustKph: Any? = null,
+        @field:SerializedName("gust_kph")
+        val gustKph: Any? = null,
 
-    @field:SerializedName("pressure_in")
-    val pressureIn: Any? = null,
+        @field:SerializedName("pressure_in")
+        val pressureIn: Any? = null,
 
-    @field:SerializedName("will_it_snow")
-    val willItSnow: Int? = null,
+        @field:SerializedName("will_it_snow")
+        val willItSnow: Int? = null,
 
-    @field:SerializedName("vis_km")
-    val visKm: Any? = null,
+        @field:SerializedName("vis_km")
+        val visKm: Any? = null,
 
-    @field:SerializedName("vis_miles")
-    val visMiles: Any? = null,
+        @field:SerializedName("vis_miles")
+        val visMiles: Any? = null,
 
-    @field:SerializedName("time_epoch")
-    val timeEpoch: Int? = null,
+        @field:SerializedName("time_epoch")
+        val timeEpoch: Int? = null,
 
-    @field:SerializedName("chance_of_rain")
-    val chanceOfRain: Int? = null,
+        @field:SerializedName("chance_of_rain")
+        val chanceOfRain: Int? = null,
 
-    @field:SerializedName("chance_of_snow")
-    val chanceOfSnow: Int? = null, */
+        @field:SerializedName("chance_of_snow")
+        val chanceOfSnow: Int? = null, */
 )

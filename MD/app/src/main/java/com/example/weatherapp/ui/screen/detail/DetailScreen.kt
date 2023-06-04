@@ -1,5 +1,6 @@
 package com.example.weatherapp.ui.screen.detail
 
+import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -26,11 +27,11 @@ import com.example.weatherapp.ui.theme.WeatherAppTheme
 
 @Composable
 fun DetailScreen(
-    modifier: Modifier = Modifier,
-    viewModel: DetailViewModel,
     cityName: String,
+    modifier: Modifier = Modifier,
     navigateBack: () -> Unit,
 ) {
+    Log.i("DetailWeather", "DetailWeather: $cityName")
     Column(
         modifier = modifier
             .fillMaxWidth(),
@@ -96,7 +97,9 @@ fun Header(
     ) {
         Icon(
             modifier = modifier
-                .clickable { navigateBack },
+                .clickable {
+                    navigateBack()
+                },
             imageVector = Icons.Rounded.ArrowBack,
             contentDescription = "Back",
         )
