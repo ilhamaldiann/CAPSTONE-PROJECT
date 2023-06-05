@@ -8,22 +8,21 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.*
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.weatherapp.R
+import com.example.weatherapp.ui.components.ForecastDaysCard
+import com.example.weatherapp.ui.components.ForecastTodayCard
 import com.example.weatherapp.ui.theme.WeatherAppTheme
+import com.example.weatherapp.ui.theme.bg_cloudy
 import com.example.weatherapp.utils.gradientBackground
 
 @Composable
@@ -33,11 +32,19 @@ fun DetailScreen(
     navigateBack: () -> Unit,
 ) {
     Log.i("DetailWeather", "DetailWeather: $cityName")
+
+    var isForecastToday by remember { mutableStateOf(true) }
+    var isBookmarked by remember { mutableStateOf(false) }
+
     Column(
-        modifier = modifier
-            .fillMaxWidth(),
+        modifier = modifier.fillMaxWidth(),
+        verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        MainCard(navigateBack = navigateBack)
+        MainCard(
+            navigateBack = navigateBack,
+            isBookmarked = isBookmarked,
+            onCheckChanged = { isBookmarked = it }
+        )
         Row(
             modifier = modifier
                 .fillMaxWidth()
@@ -45,10 +52,31 @@ fun DetailScreen(
             horizontalArrangement = Arrangement.SpaceAround,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(text = "Today")
-            Text(text = "7 Days")
+            Text(
+                modifier = modifier.clickable { isForecastToday = true },
+                text = "Today",
+                style = MaterialTheme.typography.h6
+            )
+            Text(
+                modifier = modifier.clickable { isForecastToday = false },
+                text = "7 Days",
+                style = MaterialTheme.typography.h6
+            )
         }
-        LazyColumn {
+        LazyColumn(
+            modifier = modifier,
+            contentPadding = PaddingValues(16.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            if (isForecastToday) {
+                items(5) {
+                    ForecastTodayCard()
+                }
+            } else {
+                items(5) {
+                    ForecastDaysCard()
+                }
+            }
         }
     }
 }
@@ -57,27 +85,31 @@ fun DetailScreen(
 fun MainCard(
     modifier: Modifier = Modifier,
     navigateBack: () -> Unit,
+    isBookmarked: Boolean,
+    onCheckChanged: (Boolean) -> Unit
 ) {
     Card(
         modifier = modifier
             .fillMaxWidth()
             .height(570.dp),
-        shape = RoundedCornerShape(bottomStart = 20.dp, bottomEnd = 20.dp)
+        shape = RoundedCornerShape(bottomStart = 40.dp, bottomEnd = 40.dp)
     ) {
-        Box(
-            modifier = modifier.gradientBackground(
-                listOf(Color(0xFFD3D3D3), Color(0xFFFFE4B5)),
-                45F
-            )
-        )
+        Box(modifier = modifier.gradientBackground(bg_cloudy, 45F))
         Column(
-            modifier = modifier
-                .padding(16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
+            modifier = modifier.padding(16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            Header(navigateBack = navigateBack)
+            Header(
+                navigateBack = navigateBack,
+                isBookmarked = isBookmarked,
+                onCheckChanged = onCheckChanged
+            )
             WeatherInCard()
-            Text(text = "20°", style = MaterialTheme.typography.h3.copy(fontStyle = FontStyle.Italic))
+            Text(
+                text = "20°",
+                style = MaterialTheme.typography.h3.copy(fontStyle = FontStyle.Italic)
+            )
             GridWeatherComponent()
         }
     }
@@ -87,18 +119,16 @@ fun MainCard(
 fun Header(
     modifier: Modifier = Modifier,
     navigateBack: () -> Unit,
+    isBookmarked: Boolean,
+    onCheckChanged: (Boolean) -> Unit
 ) {
     Row(
-        modifier = modifier
-            .fillMaxWidth(),
+        modifier = modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
         Icon(
-            modifier = modifier
-                .clickable {
-                    navigateBack()
-                },
+            modifier = modifier.clickable { navigateBack() },
             imageVector = Icons.Rounded.ArrowBack,
             contentDescription = "Back",
         )
@@ -115,10 +145,20 @@ fun Header(
                 style = MaterialTheme.typography.body2
             )
         }
-        Icon(
-            imageVector = Icons.Rounded.Bookmark,
-            contentDescription = "Bookmark"
-        )
+        IconToggleButton(
+            checked = isBookmarked,
+            onCheckedChange = { onCheckChanged(it) }
+        ) {
+            Icon(
+                modifier = modifier.size(32.dp),
+                imageVector = if (isBookmarked) {
+                    Icons.Rounded.Bookmark
+                } else {
+                    Icons.Rounded.BookmarkBorder
+                },
+                contentDescription = "Bookmark"
+            )
+        }
     }
 }
 
@@ -128,16 +168,14 @@ fun WeatherInCard(modifier: Modifier = Modifier) {
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Image(
-            modifier = modifier
-                .size(300.dp)
-                .padding(horizontal = 30.dp),
+            modifier = modifier.size(300.dp),
             painter = painterResource(R.drawable.ic_cloudy),
             contentDescription = null,
         )
         Text(
             modifier = modifier,
             text = "Cloudy",
-            style = MaterialTheme.typography.h4
+            style = MaterialTheme.typography.h4,
         )
     }
 }
@@ -145,21 +183,20 @@ fun WeatherInCard(modifier: Modifier = Modifier) {
 @Composable
 fun GridWeatherComponent(modifier: Modifier = Modifier) {
     LazyVerticalGrid(
-        modifier = modifier
-            .fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
         columns = GridCells.Fixed(4),
-        verticalArrangement = Arrangement.Bottom
+        verticalArrangement = Arrangement.Center
     ) {
-        item{
+        item {
             GridComponents(icon = R.drawable.ic_barometer, text = "air pressure", value = "20")
         }
-        item{
+        item {
             GridComponents(icon = R.drawable.ic_humidity, text = "humidity", value = "20")
         }
-        item{
+        item {
             GridComponents(icon = R.drawable.ic_wind_speed, text = "wind speed", value = "20")
         }
-        item{
+        item {
             GridComponents(icon = R.drawable.ic_sunny, text = "uv index", value = "5")
         }
     }
@@ -185,10 +222,11 @@ fun GridComponents(
         Text(text = value, style = MaterialTheme.typography.body1)
     }
 }
-@Preview(showBackground = false, widthDp = 432)
+
+@Preview(showBackground = true, widthDp = 432)
 @Composable
 fun DetailWeatherPreview() {
     WeatherAppTheme {
-        MainCard(navigateBack = {})
+        DetailScreen(cityName = "Semarang") {}
     }
 }

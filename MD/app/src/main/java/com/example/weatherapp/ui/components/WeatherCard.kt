@@ -17,7 +17,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.weatherapp.R
-import com.example.weatherapp.ui.theme.WeatherAppTheme
+import com.example.weatherapp.ui.theme.*
 import com.example.weatherapp.utils.doubleToInt
 import com.example.weatherapp.utils.gradientBackground
 
@@ -33,35 +33,35 @@ fun WeatherCard(
     when (status) {
         "Sunny" -> {
             icon = painterResource(R.drawable.ic_sunny)
-            background = listOf(Color(0xFFFFE4B5), Color(0xFFFFFFCC))
+            background = bg_sunny
         }
         "Rainy" -> {
             icon = painterResource(R.drawable.ic_rainy)
-            background = listOf(Color(0xFFADD8E6), Color(0xFF87CEFA))
+            background = bg_rainy
         }
         "Cloudy" -> {
             icon = painterResource(R.drawable.cloudy2)
-            background = listOf(Color(0xFFD3D3D3), Color(0xFFFFE4B5))
+            background = bg_cloudy
         }
         "Drizzly" -> {
             icon = painterResource(R.drawable.ic_drizzly)
-            background = listOf(Color(0xFF87CEEB), Color(0xFFECECEC))
+            background = bg_drizzly
         }
         "SunShower" -> {
             icon = painterResource(R.drawable.ic_sun_shower)
-            background = listOf(Color(0xFF87CEEB), Color(0xFFFFFFCC))
+            background = bg_sun_shower
         }
         "Storm" -> {
             icon = painterResource(R.drawable.ic_storm)
-            background = listOf(Color(0xFF4B0082), Color(0xFF000080))
+            background = bg_storm
         }
         "Foggy" -> {
             icon = painterResource(R.drawable.ic_foggy)
-            background = listOf(Color(0xFFF5F5F5), Color(0xFFF0F0F0))
+            background = bg_foggy
         }
         else -> {
             icon = painterResource(R.drawable.ic_partly_cloudy)
-            background = listOf(Color(0xFF87CEEB), Color(0xFFFFE4B5))
+            background = bg_partly_sunny
         }
     }
 
