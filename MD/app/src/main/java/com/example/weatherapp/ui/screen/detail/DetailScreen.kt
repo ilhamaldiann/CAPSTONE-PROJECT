@@ -1,6 +1,7 @@
 package com.example.weatherapp.ui.screen.detail
 
 import android.util.Log
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -14,6 +15,7 @@ import androidx.compose.material.icons.rounded.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.tooling.preview.Preview
@@ -92,13 +94,15 @@ fun MainCard(
         modifier = modifier
             .fillMaxWidth()
             .height(570.dp),
+        elevation = 5.dp,
+        border = BorderStroke(1.dp, Color(0x80C5C5C5)),
         shape = RoundedCornerShape(bottomStart = 40.dp, bottomEnd = 40.dp)
     ) {
         Box(modifier = modifier.gradientBackground(bg_cloudy, 45F))
         Column(
             modifier = modifier.padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(8.dp)
+            verticalArrangement = Arrangement.SpaceBetween
         ) {
             Header(
                 navigateBack = navigateBack,
@@ -123,8 +127,8 @@ fun Header(
     onCheckChanged: (Boolean) -> Unit
 ) {
     Row(
-        modifier = modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween,
+        modifier = modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Icon(
@@ -132,18 +136,27 @@ fun Header(
             imageVector = Icons.Rounded.ArrowBack,
             contentDescription = "Back",
         )
-        Column(
+        Row(
             modifier = modifier.weight(1F),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Text(
-                text = "Semarang",
-                style = MaterialTheme.typography.body1
+            horizontalArrangement = Arrangement.Center
+        ){
+            Image(
+                modifier = modifier.size(30.dp),
+                painter = painterResource(R.drawable.location),
+                contentDescription = null
             )
-            Text(
-                text = "Jawa Tengah, Indonesia",
-                style = MaterialTheme.typography.body2
-            )
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(
+                    text = "Semarang",
+                    style = MaterialTheme.typography.body1
+                )
+                Text(
+                    text = "Jawa Tengah, Indonesia",
+                    style = MaterialTheme.typography.body2
+                )
+            }
         }
         IconToggleButton(
             checked = isBookmarked,
@@ -168,7 +181,7 @@ fun WeatherInCard(modifier: Modifier = Modifier) {
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Image(
-            modifier = modifier.size(300.dp),
+            modifier = modifier.size(280.dp),
             painter = painterResource(R.drawable.ic_cloudy),
             contentDescription = null,
         )
@@ -213,17 +226,17 @@ fun GridComponents(
         modifier = modifier.fillMaxHeight(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        Text(text = value, style = MaterialTheme.typography.h6)
         Image(
             modifier = modifier.size(36.dp),
             painter = painterResource(icon),
             contentDescription = null
         )
         Text(text = text, style = MaterialTheme.typography.body1)
-        Text(text = value, style = MaterialTheme.typography.body1)
     }
 }
 
-@Preview(showBackground = true, widthDp = 432)
+@Preview(showBackground = true, showSystemUi = true, uiMode = 0)
 @Composable
 fun DetailWeatherPreview() {
     WeatherAppTheme {

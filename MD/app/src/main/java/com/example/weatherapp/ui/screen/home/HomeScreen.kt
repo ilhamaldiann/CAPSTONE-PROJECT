@@ -61,7 +61,7 @@ fun HomeScreen(
             is UiState.Success -> {
                 LazyColumn(
                     contentPadding = PaddingValues(56.dp),
-                    verticalArrangement = Arrangement.spacedBy(16.dp)
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     items(uiState.data) {
                         WeatherCard(

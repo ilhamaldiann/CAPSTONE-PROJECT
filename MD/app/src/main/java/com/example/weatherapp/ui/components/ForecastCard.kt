@@ -1,5 +1,6 @@
 package com.example.weatherapp.ui.components
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -18,6 +19,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.weatherapp.R
 import com.example.weatherapp.ui.theme.lightmode_primary_bg
+import com.example.weatherapp.ui.theme.lightmode_secondary_bg
 
 @Preview(widthDp = 320)
 @Composable
@@ -28,7 +30,9 @@ fun ForecastTodayCard(
         modifier = modifier
             .fillMaxWidth()
             .height(50.dp),
-        backgroundColor = lightmode_primary_bg,
+        elevation = 1.dp,
+        border = BorderStroke(1.dp, Color(0x80C5C5C5)),
+        backgroundColor = lightmode_secondary_bg,
         shape = RoundedCornerShape(10.dp)
     ) {
         Row(
@@ -70,6 +74,9 @@ fun ForecastDaysCard(
         modifier = modifier
             .fillMaxWidth()
             .height(50.dp),
+        elevation = 1.dp,
+        border = BorderStroke(1.dp, Color(0x80C5C5C5)),
+        backgroundColor = lightmode_secondary_bg,
         shape = RoundedCornerShape(10.dp)
     ) {
         Row(
@@ -101,14 +108,14 @@ fun ForecastDaysCard(
                 ){
                     Text(
                         text = "30°",
-                        color = Color(0xFFFF5050),
+                        color = Color(0xFFC34242),
                         style = MaterialTheme.typography.body1
                     )
                     Icon(
                         modifier = modifier.size(16.dp),
                         imageVector = ImageVector.vectorResource(R.drawable.ic_arrow_up),
                         contentDescription = null,
-                        tint = Color(0xFFFF5050)
+                        tint = Color(0xFFC34242)
                     )
                 }
                 Row(
@@ -117,14 +124,14 @@ fun ForecastDaysCard(
                 ){
                     Text(
                         text = "20°",
-                        color = Color(0xFF62FF50),
+                        color = Color(0xFF64C342),
                         style = MaterialTheme.typography.body1
                     )
                     Icon(
                         modifier = modifier.size(16.dp),
                         imageVector = ImageVector.vectorResource(R.drawable.ic_arrow_down),
                         contentDescription = null,
-                        tint = Color(0xFF62FF50)
+                        tint = Color(0xFF64C342)
                     )
                 }
             }
