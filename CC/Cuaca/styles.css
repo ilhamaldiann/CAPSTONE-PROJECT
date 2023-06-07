@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;1,100;1,200;1,300;1,400;1,600&family=Quicksand:wght@400;700&display=swap');
+body{
+  /* height: 5000px; */
+  overflow-x: hidden;
+  font-family: "Poppins", sans-serif;
+  font-weight: 300;
+}
+.bg-img{
+  height: 100vh;
+  width: 100vw;
+  object-fit: cover;
+  filter: brightness(0.6);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+.logo-img{
+  height: 7vh;
+  
+}
+
+.height{
+  height: 75vh;
+ }
+
+h1{
+  color: white;
+  font-family: "Poppins", sans-serif;
+  font-style: italic;
+  font-weight: 700;
+}
+
+h3{
+  color: white;
+  font-family: "Poppins", sans-serif;
+  font-style: italic;
+  font-weight: 300;
+}
+
+
+.search{
+ position: relative;
+ box-shadow: 0 0 40px rgba(51, 51, 51, .1); 
+ }
+
+.search input{
+  height: 50px;
+  text-indent: 20px;
+  border: 2px solid #d6d4d4;
+}
+
+
+.search input:focus{
+  box-shadow: none;
+  border: 2px solid blue;
+
+}
+
+.search .fa-search{
+
+  position: absolute;
+  top: 20px;
+  left: 16px;
+}
+
+.search button{
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  height: 40px;
+  width: 110px;
+  background: blue;
+}
+
+.card{
+  width: 150vh;
+}
+
+.span{
+  font-family: "Poppins", sans-serif;
+  font-weight: bold;
+
+}
+.n-api{
+  font-weight: 400;
+}
