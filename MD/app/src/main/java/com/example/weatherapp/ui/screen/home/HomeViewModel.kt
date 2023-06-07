@@ -1,5 +1,6 @@
 package com.example.weatherapp.ui.screen.home
 
+import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -24,6 +25,10 @@ class HomeViewModel(
         MutableStateFlow(UiState.Loading)
     val uiState: StateFlow<UiState<List<CurrentWeatherResponse>>> = _uiState
 
+    fun clearWeatherData() {
+        repository.clearWeatherData()
+    }
+
     fun getWeatherData(cityName: String, airQuality: String = "no") {
         viewModelScope.launch {
             repository.getWeatherData(cityName, airQuality)
@@ -32,6 +37,7 @@ class HomeViewModel(
                 }
                 .collect { data ->
                     _uiState.value = UiState.Success(data)
+                    Log.i("HomeViewModel", "getWeatherData: ${data.size}")
                 }
         }
     }

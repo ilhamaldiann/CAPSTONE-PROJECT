@@ -14,7 +14,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.weatherapp.data.WeatherData
 import com.example.weatherapp.data.local.entity.BookmarkEntity
 import com.example.weatherapp.data.remote.response.CurrentWeatherResponse
 import com.example.weatherapp.di.Injection
@@ -30,7 +29,7 @@ fun HomeScreen(
     ),
     navigateToDetail: (String) -> Unit,
 ) {
-    val items = ArrayList<WeatherData>()
+    val items = ArrayList<BookmarkEntity>()
     val bookmarkCity: List<BookmarkEntity> by viewModel.bookmarkCity
 
     LaunchedEffect(Unit){
@@ -38,23 +37,21 @@ fun HomeScreen(
     }
 
     if (bookmarkCity.isNotEmpty()) {
-        Log.i("MainActivity", "onCreate: ${bookmarkCity[0].cityName} 1")
         items.clear()
-        // clear ui state
         UiState.Success(emptyList<CurrentWeatherResponse>())
         bookmarkCity.map {
-            val item = WeatherData(it.cityName)
+            val item = BookmarkEntity(it.cityName)
             items.add(item)
         }
-        Log.i("MainActivity", "onCreate: ${items.size}")
+//        Dah bener
     }
 
     viewModel.uiState.collectAsState(initial = UiState.Loading).value.let { uiState ->
         when (uiState) {
             is UiState.Loading -> {
-                Log.i("MainActivity", "onCreate: UiState.Loading 2")
+                viewModel.clearWeatherData()
                 items.map {
-                    viewModel.getWeatherData(it.city)
+                    viewModel.getWeatherData(it.cityName)
                 }
             }
 
@@ -74,11 +71,10 @@ fun HomeScreen(
                         )
                     }
                 }
-                Log.i("MainActivity", "onCreate: ${uiState.data[0].location.name}")
             }
 
             is UiState.Error -> {
-                Log.i("MainActivity", "onCreate: UiState.Error")
+                Log.i("HomeScreen", "onCreate: UiState.Error")
             }
         }
     }

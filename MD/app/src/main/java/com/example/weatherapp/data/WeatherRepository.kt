@@ -15,6 +15,10 @@ class WeatherRepository private constructor(
 ) {
     private val weatherData = mutableListOf<CurrentWeatherResponse>()
 
+    fun clearWeatherData() {
+        weatherData.clear()
+    }
+
     suspend fun getWeatherData(
         cityName: String,
         airQuality: String
