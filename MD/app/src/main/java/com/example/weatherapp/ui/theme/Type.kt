@@ -18,45 +18,104 @@ val Ubuntu = FontFamily(
     Font(R.font.ubuntu_italic, style = Italic),
 )
 
-val Typography = Typography(
+val LightTypography = Typography(
     h1 = TextStyle(
         fontFamily = Ubuntu,
         fontWeight = Bold,
-        fontSize = 60.sp
+        fontSize = 60.sp,
+        color = lightmode_primary_text
     ),
     h2 = TextStyle(
         fontFamily = Ubuntu,
         fontWeight = Bold,
-        fontSize = 52.sp
+        fontSize = 52.sp,
+        color = lightmode_primary_text
     ),
     h3 = TextStyle(
         fontFamily = Ubuntu,
         fontWeight = Bold,
-        fontSize = 44.sp
+        fontSize = 44.sp,
+        color = lightmode_primary_text
     ),
     h4 = TextStyle(
         fontFamily = Ubuntu,
         fontWeight = Bold,
-        fontSize = 36.sp
+        fontSize = 36.sp,
+        color = lightmode_primary_text
     ),
     h5 = TextStyle(
         fontFamily = Ubuntu,
         fontWeight = Bold,
-        fontSize = 28.sp
+        fontSize = 28.sp,
+        color = lightmode_primary_text
     ),
     h6 = TextStyle(
         fontFamily = Ubuntu,
         fontWeight = Bold,
-        fontSize = 20.sp
+        fontSize = 20.sp,
+        color = lightmode_primary_text
     ),
     body1 = TextStyle(
         fontFamily = Ubuntu,
         fontWeight = Normal,
-        fontSize = 16.sp
+        fontSize = 16.sp,
+        color = lightmode_primary_text
     ),
     body2 = TextStyle(
         fontFamily = Ubuntu,
         fontStyle = Italic,
-        fontSize = 12.sp
+        fontSize = 12.sp,
+        color = lightmode_primary_text
+    ),
+)
+
+val DarkTypography = Typography(
+    h1 = TextStyle(
+        fontFamily = Ubuntu,
+        fontWeight = Bold,
+        fontSize = 60.sp,
+        color = darkmode_primary_text
+    ),
+    h2 = TextStyle(
+        fontFamily = Ubuntu,
+        fontWeight = Bold,
+        fontSize = 52.sp,
+        color = darkmode_primary_text
+    ),
+    h3 = TextStyle(
+        fontFamily = Ubuntu,
+        fontWeight = Bold,
+        fontSize = 44.sp,
+        color = darkmode_primary_text
+    ),
+    h4 = TextStyle(
+        fontFamily = Ubuntu,
+        fontWeight = Bold,
+        fontSize = 36.sp,
+        color = darkmode_primary_text
+    ),
+    h5 = TextStyle(
+        fontFamily = Ubuntu,
+        fontWeight = Bold,
+        fontSize = 28.sp,
+        color = darkmode_primary_text
+    ),
+    h6 = TextStyle(
+        fontFamily = Ubuntu,
+        fontWeight = Bold,
+        fontSize = 20.sp,
+        color = darkmode_primary_text
+    ),
+    body1 = TextStyle(
+        fontFamily = Ubuntu,
+        fontWeight = Normal,
+        fontSize = 16.sp,
+        color = darkmode_primary_text
+    ),
+    body2 = TextStyle(
+        fontFamily = Ubuntu,
+        fontStyle = Italic,
+        fontSize = 12.sp,
+        color = darkmode_primary_text
     ),
 )

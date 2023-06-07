@@ -10,16 +10,12 @@ private val DarkColorPalette = darkColors(
     primary = darkmode_primary_bg,
     primaryVariant = Purple700,
     secondary = darkmode_secondary_bg,
-    onPrimary = darkmode_primary_text,
-    onSecondary = darkmode_secondary_text
 )
 
 private val LightColorPalette = lightColors(
     primary = lightmode_primary_bg,
     primaryVariant = Purple700,
     secondary = lightmode_secondary_bg,
-    onPrimary = lightmode_primary_text,
-    onSecondary = lightmode_secondary_text
 )
 
 @Composable
@@ -30,9 +26,15 @@ fun WeatherAppTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Compos
         LightColorPalette
     }
 
+    val typography = if(darkTheme){
+        DarkTypography
+    }else{
+        LightTypography
+    }
+
     MaterialTheme(
         colors = colors,
-        typography = Typography,
+        typography = typography,
         shapes = Shapes,
         content = content
     )

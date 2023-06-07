@@ -35,7 +35,7 @@ fun WeatherCard(
             icon = painterResource(R.drawable.ic_sunny)
             background = bg_sunny
         }
-        "Rainy" -> {
+        "Light rain" -> {
             icon = painterResource(R.drawable.ic_rainy)
             background = bg_rainy
         }
@@ -47,7 +47,7 @@ fun WeatherCard(
             icon = painterResource(R.drawable.ic_drizzly)
             background = bg_drizzly
         }
-        "SunShower" -> {
+        "Light rain shower" -> {
             icon = painterResource(R.drawable.ic_sun_shower)
             background = bg_sun_shower
         }
@@ -55,13 +55,13 @@ fun WeatherCard(
             icon = painterResource(R.drawable.ic_storm)
             background = bg_storm
         }
-        "Foggy" -> {
+        "Mist" -> {
             icon = painterResource(R.drawable.ic_foggy)
-            background = bg_foggy
+            background = bg_mist
         }
         else -> {
             icon = painterResource(R.drawable.ic_partly_cloudy)
-            background = bg_partly_sunny
+            background = bg_partly_cloudy
         }
     }
 
@@ -75,6 +75,7 @@ fun WeatherCard(
             modifier = modifier
                 .fillMaxWidth()
                 .height(100.dp),
+            elevation = 5.dp,
             border = BorderStroke(1.dp, Color(0x80C5C5C5)),
             shape = RoundedCornerShape(20.dp)
         ) {
@@ -83,8 +84,7 @@ fun WeatherCard(
             )
 
             Column(
-                modifier = modifier
-                    .padding(horizontal = 20.dp, vertical = 16.dp),
+                modifier = modifier.padding(horizontal = 20.dp, vertical = 16.dp),
             ) {
                 Text(
                     text = cityName,
@@ -98,9 +98,16 @@ fun WeatherCard(
         }
         Image(
             modifier = modifier
-                .size(120.dp)
-                .align(Alignment.CenterEnd)
-                .offset(x = (-5).dp, y = (-5).dp),
+                .size(30.dp)
+                .align(Alignment.TopStart),
+            painter = painterResource(R.drawable.location),
+            contentDescription = null
+        )
+        Image(
+            modifier = modifier
+                .size(100.dp)
+                .align(Alignment.TopEnd)
+                .offset(x = (-20).dp),
             painter = icon,
             contentDescription = null,
         )
@@ -115,8 +122,7 @@ fun WeatherCard(
             shape = RoundedCornerShape(topStart = 50.dp, topEnd = 50.dp, bottomStart = 8.dp, bottomEnd = 8.dp)
         ) {
             Text(
-                modifier = modifier
-                    .padding(top = 5.dp),
+                modifier = modifier.padding(top = 5.dp),
                 text = "${doubleToInt(tempC)}℃",
                 style = MaterialTheme.typography.body1,
                 textAlign = TextAlign.Center,
