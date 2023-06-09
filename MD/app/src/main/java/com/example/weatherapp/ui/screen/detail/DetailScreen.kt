@@ -86,8 +86,8 @@ fun DetailScreen(
 @Composable
 fun MainCard(
     modifier: Modifier = Modifier,
-    navigateBack: () -> Unit,
     isBookmarked: Boolean,
+    navigateBack: () -> Unit,
     onCheckChanged: (Boolean) -> Unit
 ) {
     Card(
@@ -122,8 +122,8 @@ fun MainCard(
 @Composable
 fun Header(
     modifier: Modifier = Modifier,
-    navigateBack: () -> Unit,
     isBookmarked: Boolean,
+    navigateBack: () -> Unit,
     onCheckChanged: (Boolean) -> Unit
 ) {
     Row(
