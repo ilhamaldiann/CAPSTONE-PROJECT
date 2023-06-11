@@ -22,11 +22,11 @@ class WeatherRepository private constructor(
     suspend fun getWeatherData(
         cityName: String,
         airQuality: String
-    ): Flow<List<CurrentWeatherResponse>> {
+    ): Flow<CurrentWeatherResponse> {
         val api = ApiConfig.getApiService().getCurrentWeather(cityName, airQuality)
         weatherData.add(api)
 
-        return flowOf(weatherData)
+        return flowOf(api)
     }
 
     fun getBookmarkCity(): LiveData<List<BookmarkEntity>> {

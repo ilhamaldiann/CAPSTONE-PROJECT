@@ -31,6 +31,7 @@ fun HomeScreen(
 ) {
     val items = ArrayList<BookmarkEntity>()
     val bookmarkCity: List<BookmarkEntity> by viewModel.bookmarkCity
+    val listResponse: List<CurrentWeatherResponse> by viewModel.listResponse
 
     LaunchedEffect(Unit){
         viewModel.getBookmarkCity()
@@ -39,6 +40,7 @@ fun HomeScreen(
     if (bookmarkCity.isNotEmpty()) {
         items.clear()
         UiState.Success(emptyList<CurrentWeatherResponse>())
+        viewModel.clearListResponse()
         bookmarkCity.map {
             val item = BookmarkEntity(it.cityName)
             items.add(item)

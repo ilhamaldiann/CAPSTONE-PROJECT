@@ -18,17 +18,17 @@ class DetailViewModel(
         UiState.Loading)
     val uiState: StateFlow<UiState<List<CurrentWeatherResponse>>> = _uiState
 
-    fun getWeatherData(cityName: String, airQuality: String = "no"){
-        viewModelScope.launch {
-            repository.getWeatherData(cityName, airQuality)
-                .catch {
-                    _uiState.value = UiState.Error(it.message.toString())
-                }
-                .collect { data ->
-                    _uiState.value = UiState.Success(data)
-                }
-        }
-    }
+//    fun getWeatherData(cityName: String, airQuality: String = "no"){
+//        viewModelScope.launch {
+//            repository.getWeatherData(cityName, airQuality)
+//                .catch {
+//                    _uiState.value = UiState.Error(it.message.toString())
+//                }
+//                .collect { data ->
+//                    _uiState.value = UiState.Success(data)
+//                }
+//        }
+//    }
 
     fun isBookmarkCity(cityName: String) = repository.getBookmarkCity(cityName)
 
