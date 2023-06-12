@@ -13,8 +13,11 @@ import androidx.compose.material.Scaffold
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.core.app.ActivityCompat.startActivityForResult
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -72,11 +75,25 @@ fun WeatherApp(
         .isProviderEnabled(LocationManager.NETWORK_PROVIDER) ||
             locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
 
-    LaunchedEffect(Boolean) {
-        if (locationPermissions.allPermissionsGranted) {
-            if (isGpsEnabled) locationViewModel.getCurrentLocation()
-        } else {
-            locationPermissions.launchMultiplePermissionRequest()
+    val lifecycleOwner = LocalLifecycleOwner.current
+    DisposableEffect(lifecycleOwner){
+        val observer = LifecycleEventObserver { _, event ->
+            if (event == Lifecycle.Event.ON_START
+                && !isGpsEnabled
+            ){
+                locationPermissions.launchMultiplePermissionRequest()
+            } else if ( event == Lifecycle.Event.ON_START
+                && locationPermissions.allPermissionsGranted
+            ) {
+                locationViewModel.getCurrentLocation()
+            } else if ( event == Lifecycle.Event.ON_STOP) {
+                locationViewModel.getCurrentLocation()
+            }
+        }
+        lifecycleOwner.lifecycle.addObserver(observer)
+        onDispose {
+            locationViewModel.getCurrentLocation()
+            lifecycleOwner.lifecycle.removeObserver(observer)
         }
     }
 
