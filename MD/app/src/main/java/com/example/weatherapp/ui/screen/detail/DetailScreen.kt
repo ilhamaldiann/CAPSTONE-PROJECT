@@ -30,6 +30,7 @@ import com.example.weatherapp.utils.gradientBackground
 @Composable
 fun DetailScreen(
     cityName: String,
+    currentCity : String,
     modifier: Modifier = Modifier,
     navigateBack: () -> Unit,
 ) {
@@ -37,13 +38,16 @@ fun DetailScreen(
 
     var isForecastToday by remember { mutableStateOf(true) }
     var isBookmarked by remember { mutableStateOf(false) }
+    var isUserCity by remember { mutableStateOf(false) }
 
+    if (currentCity == "Kota $cityName") isUserCity = true
     Column(
         modifier = modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         MainCard(
             navigateBack = navigateBack,
+            isUserCity = isUserCity,
             isBookmarked = isBookmarked,
             onCheckChanged = { isBookmarked = it }
         )
@@ -86,6 +90,7 @@ fun DetailScreen(
 @Composable
 fun MainCard(
     modifier: Modifier = Modifier,
+    isUserCity: Boolean,
     isBookmarked: Boolean,
     navigateBack: () -> Unit,
     onCheckChanged: (Boolean) -> Unit
@@ -105,6 +110,7 @@ fun MainCard(
             verticalArrangement = Arrangement.SpaceBetween
         ) {
             Header(
+                isUserCity = isUserCity,
                 navigateBack = navigateBack,
                 isBookmarked = isBookmarked,
                 onCheckChanged = onCheckChanged
@@ -122,6 +128,7 @@ fun MainCard(
 @Composable
 fun Header(
     modifier: Modifier = Modifier,
+    isUserCity: Boolean,
     isBookmarked: Boolean,
     navigateBack: () -> Unit,
     onCheckChanged: (Boolean) -> Unit
@@ -140,11 +147,13 @@ fun Header(
             modifier = modifier.weight(1F),
             horizontalArrangement = Arrangement.Center
         ){
-            Image(
-                modifier = modifier.size(30.dp),
-                painter = painterResource(R.drawable.location),
-                contentDescription = null
-            )
+            if (isUserCity) {
+                Image(
+                    modifier = modifier.size(30.dp),
+                    painter = painterResource(R.drawable.location),
+                    contentDescription = null
+                )
+            }
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
@@ -240,6 +249,13 @@ fun GridComponents(
 @Composable
 fun DetailWeatherPreview() {
     WeatherAppTheme {
-        DetailScreen(cityName = "Semarang") {}
+        DetailScreen(cityName = "Semarang", currentCity = "Kota Semarang") {}
+    }
+}
+@Preview(showBackground = true, showSystemUi = true, uiMode = 0)
+@Composable
+fun DetailWeatherPreview2() {
+    WeatherAppTheme {
+        DetailScreen(cityName = "Semarang", currentCity = "Kota Solo") {}
     }
 }

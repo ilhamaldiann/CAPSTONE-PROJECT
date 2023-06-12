@@ -27,6 +27,7 @@ fun HomeScreen(
     viewModel: HomeViewModel = viewModel(
         factory = ViewModelFactory(Injection.provideRepository(LocalContext.current))
     ),
+    currentCity : String,
     navigateToDetail: (String) -> Unit,
 ) {
     val items = ArrayList<BookmarkEntity>()
@@ -64,6 +65,7 @@ fun HomeScreen(
                 ) {
                     items(uiState.data) {
                         WeatherCard(
+                            currentCity = currentCity,
                             cityName = it.location.name,
                             status = it.current.condition.text,
                             tempC = it.current.tempC,

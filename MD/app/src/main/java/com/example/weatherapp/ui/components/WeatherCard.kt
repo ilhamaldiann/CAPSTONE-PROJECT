@@ -7,7 +7,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -24,10 +24,14 @@ import com.example.weatherapp.utils.gradientBackground
 @Composable
 fun WeatherCard(
     modifier: Modifier = Modifier,
+    currentCity: String,
     cityName: String,
     status: String,
     tempC: Double,
 ) {
+    var isUserCity by remember { mutableStateOf(false) }
+    if (currentCity == "Kota $cityName") isUserCity = true
+
     val icon: Painter
     val background: List<Color>
     when (status) {
@@ -96,13 +100,15 @@ fun WeatherCard(
                 )
             }
         }
-        Image(
-            modifier = modifier
-                .size(30.dp)
-                .align(Alignment.TopStart),
-            painter = painterResource(R.drawable.location),
-            contentDescription = null
-        )
+        if (isUserCity) {
+            Image(
+                modifier = modifier
+                    .size(30.dp)
+                    .align(Alignment.TopStart),
+                painter = painterResource(R.drawable.location),
+                contentDescription = null
+            )
+        }
         Image(
             modifier = modifier
                 .size(100.dp)
@@ -135,7 +141,7 @@ fun WeatherCard(
 @Composable
 fun WeatherCardPreview() {
     WeatherAppTheme {
-        WeatherCard(cityName = "Banda Aceh", status = "Sunny", tempC = 28.2)
+        WeatherCard(cityName = "Banda Aceh", status = "Sunny", tempC = 28.2, currentCity = "Kota Semarang")
     }
 }
 
@@ -143,7 +149,7 @@ fun WeatherCardPreview() {
 @Composable
 fun WeatherCardPreview2() {
     WeatherAppTheme {
-        WeatherCard(cityName = "Banda Aceh", status = "Rainy", tempC = 28.2)
+        WeatherCard(cityName = "Semarang", status = "Rainy", tempC = 28.2, currentCity = "Kota Semarang")
     }
 }
 
@@ -151,7 +157,7 @@ fun WeatherCardPreview2() {
 @Composable
 fun WeatherCardPreview3() {
     WeatherAppTheme {
-        WeatherCard(cityName = "Banda Aceh", status = "Cloudy", tempC = 28.2)
+        WeatherCard(cityName = "Surabaya", status = "Cloudy", tempC = 28.2, currentCity = "Kota Semarang")
     }
 }
 
@@ -159,34 +165,34 @@ fun WeatherCardPreview3() {
 @Composable
 fun WeatherCardPreview4() {
     WeatherAppTheme {
-        WeatherCard(cityName = "Banda Aceh", status = "Storm", tempC = 28.2)
+        WeatherCard(cityName = "Makassar", status = "Storm", tempC = 28.2, currentCity = "Kota Semarang")
     }
 }
 @Preview(showBackground = true, widthDp = 320)
 @Composable
 fun WeatherCardPreview5() {
     WeatherAppTheme {
-        WeatherCard(cityName = "Banda Aceh", status = "Drizzly", tempC = 28.2)
+        WeatherCard(cityName = "Cirebon", status = "Drizzly", tempC = 28.2, currentCity = "Kota Semarang")
     }
 }
 @Preview(showBackground = true, widthDp = 320)
 @Composable
 fun WeatherCardPreview6() {
     WeatherAppTheme {
-        WeatherCard(cityName = "Banda Aceh", status = "Partly Sunny", tempC = 28.2)
+        WeatherCard(cityName = "Jakarta", status = "Partly Sunny", tempC = 28.2, currentCity = "Kota Semarang")
     }
 }
 @Preview(showBackground = true, widthDp = 320)
 @Composable
 fun WeatherCardPreview7() {
     WeatherAppTheme {
-        WeatherCard(cityName = "Banda Aceh", status = "SunShower", tempC = 28.2)
+        WeatherCard(cityName = "Bali", status = "SunShower", tempC = 28.2, currentCity = "Kota Semarang")
     }
 }
 @Preview(showBackground = true, widthDp = 320)
 @Composable
 fun WeatherCardPreview8() {
     WeatherAppTheme {
-        WeatherCard(cityName = "Banda Aceh", status = "Foggy", tempC = 28.2)
+        WeatherCard(cityName = "Jayapura", status = "Foggy", tempC = 28.2, currentCity = "Kota Semarang")
     }
 }
