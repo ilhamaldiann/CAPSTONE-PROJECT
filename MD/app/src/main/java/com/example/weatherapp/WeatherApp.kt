@@ -7,7 +7,9 @@ import android.content.Context
 import android.content.Intent
 import android.location.Geocoder
 import android.location.LocationManager
+import android.os.Build
 import android.provider.Settings
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.*
@@ -33,6 +35,7 @@ import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberMultiplePermissionsState
 import java.util.*
 
+@RequiresApi(Build.VERSION_CODES.O)
 @SuppressLint("PermissionLaunchedDuringComposition")
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
@@ -118,14 +121,7 @@ fun WeatherApp(
                 route = Screen.Detail.route,
                 arguments = listOf(navArgument("cityName") { type = NavType.StringType })
             ) {
-                val cityName = it.arguments?.getString("cityName") ?: ""
-                DetailScreen(
-                    cityName = cityName,
-                    currentCity = currentCity,
-                    navigateBack = {
-                        navController.navigateUp()
-                    }
-                )
+                DetailScreen()
             }
         }
     }

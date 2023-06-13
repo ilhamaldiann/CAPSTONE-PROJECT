@@ -1,10 +1,15 @@
 package com.example.weatherapp.utils
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.util.*
 import kotlin.math.*
 
 fun doubleToInt(number: Double): String{
@@ -16,6 +21,16 @@ fun doubleToInt(number: Double): String{
     }else{
         number.toString()
     }
+}
+
+
+@RequiresApi(Build.VERSION_CODES.O)
+fun dateFormatter(date: String): String{
+    val inputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
+    val outputFormatter = DateTimeFormatter.ofPattern("EEEE, dd MMMM yyyy", Locale("id", "ID"))
+
+    val localDate = LocalDate.parse(date, inputFormatter)
+    return localDate.format(outputFormatter)
 }
 
 fun Modifier.gradientBackground(colors: List<Color>, angle: Float) = this.then(

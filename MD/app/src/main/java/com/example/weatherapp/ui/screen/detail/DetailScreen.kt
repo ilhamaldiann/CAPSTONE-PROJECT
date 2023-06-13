@@ -1,261 +1,309 @@
 package com.example.weatherapp.ui.screen.detail
 
-import android.util.Log
-import androidx.compose.foundation.BorderStroke
+import android.app.DatePickerDialog
+import android.os.Build
+import android.widget.DatePicker
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.weatherapp.R
-import com.example.weatherapp.ui.components.ForecastDaysCard
-import com.example.weatherapp.ui.components.ForecastTodayCard
-import com.example.weatherapp.ui.theme.WeatherAppTheme
-import com.example.weatherapp.ui.theme.bg_cloudy
+import com.example.weatherapp.ui.theme.*
+import com.example.weatherapp.utils.dateFormatter
+import com.example.weatherapp.utils.doubleToInt
 import com.example.weatherapp.utils.gradientBackground
+import java.util.*
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun DetailScreen(
-    cityName: String,
-    currentCity : String,
-    modifier: Modifier = Modifier,
-    navigateBack: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
-    Log.i("DetailWeather", "DetailWeather: $cityName")
+    val precipitation by remember { mutableStateOf(0.0) }
+    val humidity by remember { mutableStateOf(0.0) }
+    val wind by remember { mutableStateOf(0.0) }
+    val avgTemp by remember { mutableStateOf(0.0) }
+    val maxTemp by remember { mutableStateOf(0.0) }
+    val minTemp by remember { mutableStateOf(0.0) }
 
-    var isForecastToday by remember { mutableStateOf(true) }
-    var isBookmarked by remember { mutableStateOf(false) }
-    var isUserCity by remember { mutableStateOf(false) }
+    val weatherStatus by remember { mutableStateOf("Sunny") }
+    val colors: List<Color>
+    val weatherImage: Int
+    when (weatherStatus) {
+        "Sunny" -> {
+            colors = bg_sunny
+            weatherImage = R.drawable.ic_sunny
+        }
+        "Cloudy" -> {
+            colors = bg_cloudy
+            weatherImage = R.drawable.cloudy2
+        }
+        "Rainy" -> {
+            colors = bg_rainy
+            weatherImage = R.drawable.ic_rainy
+        }
+        "Mist" -> {
+            colors = bg_mist
+            weatherImage = R.drawable.ic_foggy
+        }
+        "Storm" -> {
+            colors = bg_storm
+            weatherImage = R.drawable.ic_storm
+        }
+        "Drizzly" -> {
+            colors = bg_drizzly
+            weatherImage = R.drawable.ic_drizzly
+        }
+        "Sun Shower" -> {
+            colors = bg_sun_shower
+            weatherImage = R.drawable.ic_sun_shower
+        }
+        else -> {
+            colors = bg_partly_cloudy
+            weatherImage = R.drawable.ic_partly_cloudy
+        }
+    }
 
-    if (currentCity == "Kota $cityName") isUserCity = true
+    val calendar = Calendar.getInstance()
+    val year = calendar.get(Calendar.YEAR)
+    val month = calendar.get(Calendar.MONTH)
+    val day = calendar.get(Calendar.DAY_OF_MONTH)
+    calendar.time = Date()
+    var date by remember { mutableStateOf("2023/06/13") }
+    val datePickerDialog = DatePickerDialog(
+        LocalContext.current,
+        { _: DatePicker, mYear: Int, mMonth: Int, mDayOfMonth: Int ->
+            date = "$mYear/$mMonth/$mDayOfMonth"
+        }, year, month, day
+    )
+
     Column(
-        modifier = modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(8.dp)
+        modifier = modifier
+            .fillMaxWidth(),
+        verticalArrangement = Arrangement.SpaceBetween
     ) {
-        MainCard(
-            navigateBack = navigateBack,
-            isUserCity = isUserCity,
-            isBookmarked = isBookmarked,
-            onCheckChanged = { isBookmarked = it }
+        Section1(
+            maxTemp = maxTemp,
+            minTemp = minTemp,
+            weatherStatus = weatherStatus,
+            weatherImage = weatherImage,
+            colors = colors,
+            date = dateFormatter(date),
+            OnClick = { datePickerDialog.show() }
         )
-        Row(
-            modifier = modifier
-                .fillMaxWidth()
-                .height(40.dp),
-            horizontalArrangement = Arrangement.SpaceAround,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Text(
-                modifier = modifier.clickable { isForecastToday = true },
-                text = "Today",
-                style = MaterialTheme.typography.h6
-            )
-            Text(
-                modifier = modifier.clickable { isForecastToday = false },
-                text = "7 Days",
-                style = MaterialTheme.typography.h6
-            )
-        }
-        LazyColumn(
-            modifier = modifier,
-            contentPadding = PaddingValues(16.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            if (isForecastToday) {
-                items(5) {
-                    ForecastTodayCard()
-                }
-            } else {
-                items(5) {
-                    ForecastDaysCard()
-                }
-            }
-        }
+        Section2(
+            precipitation = precipitation,
+            humidity = humidity,
+            wind = wind,
+            avgTemp = avgTemp
+        )
     }
 }
 
 @Composable
-fun MainCard(
+fun Section1(
     modifier: Modifier = Modifier,
-    isUserCity: Boolean,
-    isBookmarked: Boolean,
-    navigateBack: () -> Unit,
-    onCheckChanged: (Boolean) -> Unit
+    maxTemp: Double,
+    minTemp: Double,
+    weatherStatus: String,
+    weatherImage: Int,
+    colors: List<Color>,
+    date: String,
+    OnClick: () -> Unit
 ) {
-    Card(
+    Column(
         modifier = modifier
             .fillMaxWidth()
-            .height(570.dp),
-        elevation = 5.dp,
-        border = BorderStroke(1.dp, Color(0x80C5C5C5)),
-        shape = RoundedCornerShape(bottomStart = 40.dp, bottomEnd = 40.dp)
-    ) {
-        Box(modifier = modifier.gradientBackground(bg_cloudy, 45F))
-        Column(
-            modifier = modifier.padding(16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.SpaceBetween
-        ) {
-            Header(
-                isUserCity = isUserCity,
-                navigateBack = navigateBack,
-                isBookmarked = isBookmarked,
-                onCheckChanged = onCheckChanged
-            )
-            WeatherInCard()
-            Text(
-                text = "20°",
-                style = MaterialTheme.typography.h3.copy(fontStyle = FontStyle.Italic)
-            )
-            GridWeatherComponent()
-        }
-    }
-}
-
-@Composable
-fun Header(
-    modifier: Modifier = Modifier,
-    isUserCity: Boolean,
-    isBookmarked: Boolean,
-    navigateBack: () -> Unit,
-    onCheckChanged: (Boolean) -> Unit
-) {
-    Row(
-        horizontalArrangement = Arrangement.SpaceBetween,
-        modifier = modifier.fillMaxWidth(),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Icon(
-            modifier = modifier.clickable { navigateBack() },
-            imageVector = Icons.Rounded.ArrowBack,
-            contentDescription = "Back",
-        )
-        Row(
-            modifier = modifier.weight(1F),
-            horizontalArrangement = Arrangement.Center
-        ){
-            if (isUserCity) {
-                Image(
-                    modifier = modifier.size(30.dp),
-                    painter = painterResource(R.drawable.location),
-                    contentDescription = null
-                )
-            }
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Text(
-                    text = "Semarang",
-                    style = MaterialTheme.typography.body1
-                )
-                Text(
-                    text = "Jawa Tengah, Indonesia",
-                    style = MaterialTheme.typography.body2
-                )
-            }
-        }
-        IconToggleButton(
-            checked = isBookmarked,
-            onCheckedChange = { onCheckChanged(it) }
-        ) {
-            Icon(
-                modifier = modifier.size(32.dp),
-                imageVector = if (isBookmarked) {
-                    Icons.Rounded.Bookmark
-                } else {
-                    Icons.Rounded.BookmarkBorder
-                },
-                contentDescription = "Bookmark"
-            )
-        }
-    }
-}
-
-@Composable
-fun WeatherInCard(modifier: Modifier = Modifier) {
-    Column(
+            .gradientBackground(colors = colors, 150F)
+            .padding(8.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        Image(
-            modifier = modifier.size(280.dp),
-            painter = painterResource(R.drawable.ic_cloudy),
-            contentDescription = null,
-        )
-        Text(
+        // City and Region
+        Column(
             modifier = modifier,
-            text = "Cloudy",
-            style = MaterialTheme.typography.h4,
-        )
-    }
-}
-
-@Composable
-fun GridWeatherComponent(modifier: Modifier = Modifier) {
-    LazyVerticalGrid(
-        modifier = modifier.fillMaxSize(),
-        columns = GridCells.Fixed(4),
-        verticalArrangement = Arrangement.Center
-    ) {
-        item {
-            GridComponents(icon = R.drawable.ic_barometer, text = "air pressure", value = "20")
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(text = "Semarang", style = MaterialTheme.typography.body1)
+            Text(text = "Jawa Tengah, Indonesia", style = MaterialTheme.typography.body2)
         }
-        item {
-            GridComponents(icon = R.drawable.ic_humidity, text = "humidity", value = "20")
+        Spacer(modifier = modifier.height(40.dp))
+        // Calendar and Date
+        Row(
+            modifier = modifier,
+            horizontalArrangement = Arrangement.spacedBy(16.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Image(
+                modifier = modifier
+                    .size(40.dp)
+                    .clickable { OnClick() },
+                painter = painterResource(R.drawable.ic_calendar),
+                contentDescription = "Calendar"
+            )
+            Text(text = date, style = MaterialTheme.typography.h6)
         }
-        item {
-            GridComponents(icon = R.drawable.ic_wind_speed, text = "wind speed", value = "20")
-        }
-        item {
-            GridComponents(icon = R.drawable.ic_sunny, text = "uv index", value = "5")
-        }
-    }
-}
-
-@Composable
-fun GridComponents(
-    modifier: Modifier = Modifier,
-    icon: Int,
-    text: String,
-    value: String
-) {
-    Column(
-        modifier = modifier.fillMaxHeight(),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Text(text = value, style = MaterialTheme.typography.h6)
+        // Weather Icon
         Image(
-            modifier = modifier.size(36.dp),
-            painter = painterResource(icon),
+            modifier = modifier.size(300.dp),
+            painter = painterResource(weatherImage),
             contentDescription = null
         )
-        Text(text = text, style = MaterialTheme.typography.body1)
+        // Weather Status
+        Text(text = weatherStatus, style = MaterialTheme.typography.h5)
+        // Max Min Temp
+        Row(
+            modifier = modifier,
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(text = "${doubleToInt(maxTemp)}°", style = MaterialTheme.typography.h2)
+            Icon(
+                modifier = modifier.size(32.dp),
+                imageVector = ImageVector.vectorResource(R.drawable.ic_arrow_up),
+                contentDescription = null,
+                tint = Color(0xFFAD3A3A)
+            )
+
+            Spacer(
+                modifier = modifier
+                    .width(2.5.dp)
+                    .height(40.dp)
+                    .background(Color(0xFF000000))
+            )
+            Icon(
+                modifier = modifier.size(32.dp),
+                imageVector = ImageVector.vectorResource(R.drawable.ic_arrow_down),
+                contentDescription = null,
+                tint = Color(0xFF59AD3B)
+            )
+            Text(text = "${doubleToInt(minTemp)}°", style = MaterialTheme.typography.h2)
+        }
     }
 }
 
+@Composable
+fun Section2(
+    modifier: Modifier = Modifier,
+    precipitation: Double,
+    humidity: Double,
+    wind: Double,
+    avgTemp: Double
+) {
+    LazyVerticalGrid(
+        modifier = modifier.background(Color(0xFF5A5A5A)),
+        columns = GridCells.Fixed(2),
+        horizontalArrangement = Arrangement.spacedBy(24.dp),
+        verticalArrangement = Arrangement.spacedBy(36.dp),
+        contentPadding = PaddingValues(24.dp, 48.dp)
+    ) {
+        item {
+            GridLeftItem(text = "Temperature", value = "${doubleToInt(avgTemp)}℃", image = R.drawable.ic_termo)
+        }
+        item {
+            GridRightItem(text = "Wind", value = "${doubleToInt(wind)}Km/h", image = R.drawable.ic_wind_speed)
+        }
+        item {
+            GridLeftItem(text = "Humidity", value = "${doubleToInt(humidity)}%", image = R.drawable.ic_humidity)
+        }
+        item {
+            GridRightItem(text = "Precipitation", value = "${doubleToInt(precipitation)}%", image = R.drawable.ic_rain_rate)
+        }
+    }
+}
+
+@Composable
+fun GridLeftItem(
+    modifier: Modifier = Modifier,
+    text: String,
+    value: String,
+    image: Int
+) {
+    Row(
+        horizontalArrangement = Arrangement.End,
+    ) {
+        Column(
+            horizontalAlignment = Alignment.End
+        ) {
+            Text(
+                text = text, style = MaterialTheme.typography.body1.copy(
+                    color = Color(0xFFC0C0C0),
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.Bold
+                )
+            )
+            Spacer(modifier = modifier.height(4.dp))
+            Text(
+                text = value, style = MaterialTheme.typography.h6.copy(
+                    color = Color(0xFFFFFFFF)
+                )
+            )
+        }
+        Image(
+            modifier = modifier.size(48.dp),
+            painter = painterResource(image),
+            contentDescription = null
+        )
+    }
+}
+
+@Composable
+fun GridRightItem(
+    modifier: Modifier = Modifier,
+    text: String,
+    value: String,
+    image: Int
+) {
+    Row(
+        horizontalArrangement = Arrangement.Start
+    ) {
+        Image(
+            modifier = modifier.size(48.dp),
+            painter = painterResource(image),
+            contentDescription = null
+        )
+        Column(
+            horizontalAlignment = Alignment.Start,
+            verticalArrangement = Arrangement.SpaceBetween
+        ) {
+            Text(
+                text = text, style = MaterialTheme.typography.body1.copy(
+                    color = Color(0xFFC0C0C0),
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.Bold
+                )
+            )
+            Spacer(modifier = modifier.height(4.dp))
+            Text(
+                text = value, style = MaterialTheme.typography.h6.copy(
+                    color = Color(0xFFFFFFFF)
+                )
+            )
+        }
+    }
+}
+
+@RequiresApi(Build.VERSION_CODES.O)
 @Preview(showBackground = true, showSystemUi = true, uiMode = 0)
 @Composable
 fun DetailWeatherPreview() {
     WeatherAppTheme {
-        DetailScreen(cityName = "Semarang", currentCity = "Kota Semarang") {}
-    }
-}
-@Preview(showBackground = true, showSystemUi = true, uiMode = 0)
-@Composable
-fun DetailWeatherPreview2() {
-    WeatherAppTheme {
-        DetailScreen(cityName = "Semarang", currentCity = "Kota Solo") {}
+        DetailScreen()
     }
 }

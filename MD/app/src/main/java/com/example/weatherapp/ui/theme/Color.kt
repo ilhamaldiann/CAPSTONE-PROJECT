@@ -7,7 +7,7 @@ val Purple500 = Color(0xFF6200EE)
 val Purple700 = Color(0xFF3700B3)
 val Teal200 = Color(0xFF03DAC5)
 
-val bg_sunny = listOf(Color(0xFFFFE4B5), Color(0xFFF7F7A4))
+val bg_sunny = listOf(Color(0xFFFFDB9C), Color(0xFFFFFF91))
 val bg_cloudy = listOf(Color(0xFF87CEFA), Color(0xFF8ECDE2))
 val bg_rainy = listOf(Color(0xFF2980B9), Color(0xFF6DD5FA))
 val bg_mist = listOf(Color(0xFFB0AABD), Color(0xFFD4CFDA))
