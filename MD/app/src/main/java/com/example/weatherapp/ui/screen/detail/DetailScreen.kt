@@ -28,6 +28,7 @@ import com.example.weatherapp.ui.theme.*
 import com.example.weatherapp.utils.dateFormatter
 import com.example.weatherapp.utils.doubleToInt
 import com.example.weatherapp.utils.gradientBackground
+import java.time.LocalDate
 import java.util.*
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -85,11 +86,12 @@ fun DetailScreen(
     val month = calendar.get(Calendar.MONTH)
     val day = calendar.get(Calendar.DAY_OF_MONTH)
     calendar.time = Date()
-    var date by remember { mutableStateOf("2023/06/13") }
+    val currentDate = LocalDate.now().toString()
+    var date by remember { mutableStateOf( currentDate ) }
     val datePickerDialog = DatePickerDialog(
         LocalContext.current,
         { _: DatePicker, mYear: Int, mMonth: Int, mDayOfMonth: Int ->
-            date = "$mYear/$mMonth/$mDayOfMonth"
+            date = "$mYear-$mMonth-$mDayOfMonth"
         }, year, month, day
     )
 
