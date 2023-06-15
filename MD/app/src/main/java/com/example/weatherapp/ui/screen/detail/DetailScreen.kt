@@ -88,12 +88,12 @@ fun DetailScreen(
     calendar.time = Date()
     val currentDate = LocalDate.now().toString()
     var date by remember { mutableStateOf( currentDate ) }
-    val datePickerDialog = DatePickerDialog(
-        LocalContext.current,
-        { _: DatePicker, mYear: Int, mMonth: Int, mDayOfMonth: Int ->
-            date = "$mYear-$mMonth-$mDayOfMonth"
-        }, year, month, day
-    )
+//    val datePickerDialog = DatePickerDialog(
+//        LocalContext.current,
+//        { _: DatePicker, mYear: Int, mMonth: Int, mDayOfMonth: Int ->
+//            date = "$mYear-$mMonth-$mDayOfMonth"
+//        }, year, month, day
+//    )
 
     Column(
         modifier = modifier
@@ -107,7 +107,7 @@ fun DetailScreen(
             weatherImage = weatherImage,
             colors = colors,
             date = dateFormatter(date),
-            OnClick = { datePickerDialog.show() }
+            OnClick = {  } //datePickerDialog.show()
         )
         Section2(
             precipitation = precipitation,

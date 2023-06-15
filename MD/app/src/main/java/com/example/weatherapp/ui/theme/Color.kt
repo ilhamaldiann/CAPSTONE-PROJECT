@@ -17,11 +17,9 @@ val bg_sun_shower = listOf(Color(0xFFB9A129), Color(0xFFFA8E6D))
 val bg_partly_cloudy = listOf(Color(0xFFFFDB63), Color(0xFFFFE384))
 
 val lightmode_primary_text = Color(0xFF000000)
-val lightmode_secondary_text = Color(0xFF707070)
 val lightmode_primary_bg = Color(0xFFFFFFFF)
 val lightmode_secondary_bg = Color(0xFF808080)
 
 val darkmode_primary_text = Color(0xFFFFFFFF)
-val darkmode_secondary_text = Color(0xFFB6B6B6)
 val darkmode_primary_bg = Color(0xFF1B1B1B)
 val darkmode_secondary_bg = Color(0xFF464646)
