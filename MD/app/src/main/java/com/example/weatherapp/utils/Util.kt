@@ -25,7 +25,7 @@ fun doubleToInt(number: Double): String{
 
 @RequiresApi(Build.VERSION_CODES.O)
 fun dateFormatter(date: String): String{
-    val inputFormatter = DateTimeFormatter.ofPattern("yyyy-LL-dd")
+    val inputFormatter = DateTimeFormatter.ofPattern("yyyy-L-d")
     val outputFormatter = DateTimeFormatter.ofPattern("EEEE, dd LLLL yyyy", Locale("id", "ID"))
 
     val localDate = LocalDate.parse(date, inputFormatter)

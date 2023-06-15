@@ -33,9 +33,7 @@ import java.util.*
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun DetailScreen(
-    modifier: Modifier = Modifier
-) {
+fun DetailScreen(modifier: Modifier = Modifier) {
     val precipitation by remember { mutableStateOf(0.0) }
     val humidity by remember { mutableStateOf(0.0) }
     val wind by remember { mutableStateOf(0.0) }
@@ -85,20 +83,17 @@ fun DetailScreen(
     val year = calendar.get(Calendar.YEAR)
     val month = calendar.get(Calendar.MONTH)
     val day = calendar.get(Calendar.DAY_OF_MONTH)
-    calendar.time = Date()
     val currentDate = LocalDate.now().toString()
     var date by remember { mutableStateOf( currentDate ) }
-//    val datePickerDialog = DatePickerDialog(
-//        LocalContext.current,
-//        { _: DatePicker, mYear: Int, mMonth: Int, mDayOfMonth: Int ->
-//            date = "$mYear-$mMonth-$mDayOfMonth"
-//        }, year, month, day
-//    )
+    val datePickerDialog = DatePickerDialog(
+        LocalContext.current,
+        { _: DatePicker, mYear: Int, mMonth: Int, mDayOfMonth: Int ->
+            date = "$mYear-${mMonth + 1}-$mDayOfMonth"
+        }, year, month, day
+    )
 
     Column(
-        modifier = modifier
-            .fillMaxWidth(),
-        verticalArrangement = Arrangement.SpaceBetween
+        modifier = modifier.fillMaxSize()
     ) {
         Section1(
             maxTemp = maxTemp,
@@ -107,7 +102,7 @@ fun DetailScreen(
             weatherImage = weatherImage,
             colors = colors,
             date = dateFormatter(date),
-            OnClick = {  } //datePickerDialog.show()
+            OnClick = { datePickerDialog.show() }
         )
         Section2(
             precipitation = precipitation,
@@ -149,7 +144,7 @@ fun Section1(
         // Calendar and Date
         Row(
             modifier = modifier,
-            horizontalArrangement = Arrangement.spacedBy(16.dp),
+            horizontalArrangement = Arrangement.Start,
             verticalAlignment = Alignment.CenterVertically
         ) {
             Image(
@@ -197,6 +192,7 @@ fun Section1(
             )
             Text(text = "${doubleToInt(minTemp)}°", style = MaterialTheme.typography.h2)
         }
+        Spacer(modifier = modifier.height(20.dp))
     }
 }
 
@@ -209,11 +205,11 @@ fun Section2(
     avgTemp: Double
 ) {
     LazyVerticalGrid(
-        modifier = modifier.background(Color(0xFF5A5A5A)),
+        modifier = modifier.fillMaxSize().background(Color(0xFF5A5A5A)),
         columns = GridCells.Fixed(2),
         horizontalArrangement = Arrangement.spacedBy(24.dp),
-        verticalArrangement = Arrangement.spacedBy(36.dp),
-        contentPadding = PaddingValues(24.dp, 48.dp)
+        verticalArrangement = Arrangement.SpaceAround,
+        contentPadding = PaddingValues(vertical = 48.dp)
     ) {
         item {
             GridLeftItem(text = "Temperature", value = "${doubleToInt(avgTemp)}℃", image = R.drawable.ic_termo)
@@ -246,7 +242,7 @@ fun GridLeftItem(
             Text(
                 text = text, style = MaterialTheme.typography.body1.copy(
                     color = Color(0xFFC0C0C0),
-                    fontSize = 12.sp,
+                    fontSize = 16.sp,
                     fontWeight = FontWeight.Bold
                 )
             )
@@ -258,7 +254,7 @@ fun GridLeftItem(
             )
         }
         Image(
-            modifier = modifier.size(48.dp),
+            modifier = modifier.size(56.dp),
             painter = painterResource(image),
             contentDescription = null
         )
@@ -276,7 +272,7 @@ fun GridRightItem(
         horizontalArrangement = Arrangement.Start
     ) {
         Image(
-            modifier = modifier.size(48.dp),
+            modifier = modifier.size(56.dp),
             painter = painterResource(image),
             contentDescription = null
         )
@@ -287,7 +283,7 @@ fun GridRightItem(
             Text(
                 text = text, style = MaterialTheme.typography.body1.copy(
                     color = Color(0xFFC0C0C0),
-                    fontSize = 12.sp,
+                    fontSize = 16.sp,
                     fontWeight = FontWeight.Bold
                 )
             )
@@ -302,7 +298,7 @@ fun GridRightItem(
 }
 
 @RequiresApi(Build.VERSION_CODES.O)
-@Preview(showBackground = true, showSystemUi = true, uiMode = 0)
+@Preview(showBackground = true)
 @Composable
 fun DetailWeatherPreview() {
     WeatherAppTheme {

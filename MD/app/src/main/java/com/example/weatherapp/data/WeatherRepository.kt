@@ -1,23 +1,23 @@
 package com.example.weatherapp.data
 
-import androidx.lifecycle.LiveData
-import com.example.weatherapp.data.local.room.BookmarkDao
-import com.example.weatherapp.data.local.entity.BookmarkEntity
+import android.content.Context
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.booleanPreferencesKey
+import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.emptyPreferences
+import androidx.datastore.preferences.preferencesDataStore
 import com.example.weatherapp.data.remote.response.CurrentWeatherResponse
 import com.example.weatherapp.data.remote.retrofit.ApiConfig
-import com.example.weatherapp.utils.AppExecutors
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.map
+import java.io.IOException
 
-class WeatherRepository private constructor(
-    private val bookmarkDao: BookmarkDao,
-    private val appExecutors: AppExecutors
-) {
+val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "on_boarding_pref")
+class WeatherRepository(context: Context) {
     private val weatherData = mutableListOf<CurrentWeatherResponse>()
-
-    fun clearWeatherData() {
-        weatherData.clear()
-    }
 
     suspend fun getWeatherData(
         cityName: String,
@@ -29,36 +29,30 @@ class WeatherRepository private constructor(
         return flowOf(api)
     }
 
-    fun getBookmarkCity(): LiveData<List<BookmarkEntity>> {
-        return bookmarkDao.getBookmarkCity()
+    private object PreferencesKey {
+        val onBoardingKey = booleanPreferencesKey(name = "on_boarding_completed")
     }
 
-    fun getBookmarkCity(city: String): LiveData<BookmarkEntity> {
-        return bookmarkDao.getBookmarkCity(city)
-    }
+    private val dataStore = context.dataStore
 
-    fun insertBookmarkCity(city: BookmarkEntity) {
-        appExecutors.diskIO.execute {
-            bookmarkDao.insertCity(city)
+    suspend fun saveOnBoardingState(completed: Boolean) {
+        dataStore.edit { preferences ->
+            preferences[PreferencesKey.onBoardingKey] = completed
         }
     }
 
-    fun deleteBookmarkCity(city: String) {
-        appExecutors.diskIO.execute {
-            bookmarkDao.deleteCity(city)
-        }
-    }
-
-    companion object {
-        @Volatile
-        private var instance: WeatherRepository? = null
-
-        fun getInstance(
-            usersDao: BookmarkDao,
-            appExecutors: AppExecutors
-        ): WeatherRepository =
-            instance ?: synchronized(this) {
-                instance ?: WeatherRepository(usersDao, appExecutors)
-            }.also { instance = it }
+    fun readOnBoardingState(): Flow<Boolean> {
+        return dataStore.data
+            .catch { exception ->
+                if (exception is IOException) {
+                    emit(emptyPreferences())
+                } else {
+                    throw exception
+                }
+            }
+            .map { preferences ->
+                val onBoardingState = preferences[PreferencesKey.onBoardingKey] ?: false
+                onBoardingState
+            }
     }
 }
