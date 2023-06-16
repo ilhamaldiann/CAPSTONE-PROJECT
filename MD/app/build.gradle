@@ -102,6 +102,8 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:32.1.0')
     implementation 'com.google.firebase:firebase-ml-modeldownloader-ktx'
     implementation 'org.tensorflow:tensorflow-lite:2.7.0'
+//    implementation 'org.tensorflow:tensorflow-lite-select-tf-ops:0.0.0'
+//    implementation 'org.tensorflow:tensorflow-lite-gpu:2.8.0'
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'

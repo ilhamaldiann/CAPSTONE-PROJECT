@@ -56,3 +56,14 @@ fun Modifier.gradientBackground(colors: List<Color>, angle: Float) = this.then(
         )
     }
 )
+
+fun String.toFloatArray(): FloatArray {
+    val stringArray = this.split(",") // Split string menjadi array berdasarkan delimiter yang sesuai
+
+    val floatArray = FloatArray(stringArray.size)
+    for (i in stringArray.indices) {
+        floatArray[i] = stringArray[i].toFloat() // Konversi setiap elemen string menjadi float
+    }
+
+    return floatArray
+}
